@@ -45,7 +45,8 @@ window.HeartifactsContent.en = {
   },
   socials: {
     kicker: "Elsewhere on the internet",
-    title: "STALK US <span>— in the socially acceptable way</span>"
+    title: "Connect with us.",
+    note: "Music, rehearsal chaos and whatever else escapes the group chat."
   },
   footer: {
     location: "Alternative rock · Bucharest, Romania",
