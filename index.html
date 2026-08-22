@@ -3,12 +3,172 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Heartifacts</title>
+  <meta name="theme-color" content="#09090d">
+  <meta name="description" content="Heartifacts is a five-piece alternative rock band from Bucharest, blending pop-punk hooks, hard-rock weight and emotionally overcharged songs.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Heartifacts — Alternative Rock from Bucharest">
+  <meta property="og:description" content="For people who feel everything a little too intensely.">
+  <meta property="og:image" content="./og-image.jpg">
+  <meta property="og:site_name" content="Heartifacts">
+  <meta name="twitter:card" content="summary_large_image">
+  <title>Heartifacts — Alternative Rock from Bucharest</title>
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./styles.css">
+  <script src="./content/en.js" defer></script>
+  <script src="./content/ro.js" defer></script>
+  <script src="./site-data.js" defer></script>
+  <script src="./site.js" defer></script>
 </head>
-
 <body>
-  <h1>Heartifacts</h1>
-  <p>Alternative rock from Bucharest.</p>
-  <p>Something considerably prettier is coming here.</p>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header" data-header>
+    <a class="brand" href="#top" aria-label="Heartifacts home">
+      <span class="brand-word">HEARTIFACTS</span>
+      <span class="brand-mark" aria-hidden="true">♥</span>
+    </a>
+
+    <nav class="desktop-nav" aria-label="Primary navigation">
+      <a href="#music" data-i18n="nav.music">Music</a>
+      <a href="#live" data-i18n="nav.live">Live</a>
+      <a href="#about" data-i18n="nav.about">About</a>
+      <a href="#photos" data-i18n="nav.photos">Photos</a>
+    </nav>
+
+    <div class="header-actions">
+      <div class="language-switcher" aria-label="Language">
+        <button type="button" class="lang-button" data-lang="ro">RO</button>
+        <span aria-hidden="true">/</span>
+        <button type="button" class="lang-button" data-lang="en">EN</button>
+      </div>
+      <button class="menu-button" type="button" aria-expanded="false" aria-controls="mobile-menu" data-menu-button>
+        <span class="sr-only" data-i18n="nav.menu">Menu</span>
+        <span aria-hidden="true"></span><span aria-hidden="true"></span>
+      </button>
+    </div>
+  </header>
+
+  <div class="mobile-menu" id="mobile-menu" data-mobile-menu hidden>
+    <a href="#music" data-i18n="nav.music">Music</a>
+    <a href="#live" data-i18n="nav.live">Live</a>
+    <a href="#about" data-i18n="nav.about">About</a>
+    <a href="#photos" data-i18n="nav.photos">Photos</a>
+    <a data-social="instagram" href="#">Instagram</a>
+    <a data-social="spotify" href="#">Spotify</a>
+    <a data-social="youtube" href="#">YouTube</a>
+  </div>
+
+  <main id="main">
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <div class="hero-noise" aria-hidden="true"></div>
+      <div class="hero-copy">
+        <p class="eyebrow" data-i18n="hero.eyebrow">Alternative rock · Bucharest</p>
+        <h1 id="hero-title" class="hero-title">HEARTIFACTS</h1>
+        <p class="hero-tagline" data-i18n="hero.tagline">for people who feel everything a little too intensely</p>
+        <p class="hero-positioning" data-i18n="hero.positioning">Five-piece alternative rock with pop-punk hooks, hard-rock weight and emotionally overcharged songs.</p>
+        <div class="hero-cta-row">
+          <a class="button button-primary" href="#music" data-i18n="actions.listen">Listen</a>
+          <a class="button button-ghost" data-release-youtube href="#" target="_blank" rel="noopener noreferrer" data-i18n="actions.watch">Watch</a>
+        </div>
+        <div class="hero-socials" aria-label="Heartifacts social links">
+          <a data-social="instagram" href="#" target="_blank" rel="noopener noreferrer">Instagram</a>
+          <a data-social="spotify" href="#" target="_blank" rel="noopener noreferrer">Spotify</a>
+          <a data-social="youtube" href="#" target="_blank" rel="noopener noreferrer">YouTube</a>
+        </div>
+      </div>
+
+      <div class="hero-art" aria-label="Heartifacts visual placeholder">
+        <div class="hero-photo-frame">
+          <div class="media-placeholder media-placeholder-hero" data-hero-media>
+            <span>HEARTIFACTS</span>
+            <small data-i18n="placeholders.heroPhoto">Hero photo goes here</small>
+          </div>
+        </div>
+        <div class="sticker sticker-blue" aria-hidden="true">BUCHAREST</div>
+        <div class="sticker sticker-pink" aria-hidden="true">LOUD FEELINGS</div>
+      </div>
+    </section>
+
+    <section class="section music-section" id="music" aria-labelledby="music-title">
+      <div class="section-heading">
+        <p class="eyebrow" data-i18n="music.kicker">Featured release</p>
+        <h2 id="music-title" data-i18n="music.title">Turn it up.</h2>
+      </div>
+
+      <div class="release-layout">
+        <div class="release-art-wrap">
+          <div class="release-art media-placeholder" data-release-art>
+            <span>RED FLAG</span>
+            <small data-i18n="placeholders.releaseArt">Artwork goes here</small>
+          </div>
+        </div>
+        <div class="release-copy">
+          <p class="release-label" data-i18n="music.latest">Latest release</p>
+          <h3 data-release-title>Red Flag</h3>
+          <p data-i18n="music.body">A sharp, angry song about betrayal, crossed boundaries and finally seeing the warning signs clearly.</p>
+          <div class="release-actions">
+            <a class="button button-primary" data-release-spotify href="#" target="_blank" rel="noopener noreferrer" data-i18n="actions.spotify">Listen on Spotify</a>
+            <a class="button button-outline" data-release-youtube href="#" target="_blank" rel="noopener noreferrer" data-i18n="actions.youtube">Watch on YouTube</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section live-section" id="live" aria-labelledby="live-title">
+      <div class="live-scribble" aria-hidden="true">LIVE!</div>
+      <div class="section-heading section-heading-light">
+        <p class="eyebrow" data-i18n="live.kicker">Next up</p>
+        <h2 id="live-title" data-i18n="live.title">Come scream with us.</h2>
+      </div>
+      <div class="shows" data-shows></div>
+    </section>
+
+    <section class="section about-section" id="about" aria-labelledby="about-title">
+      <div class="about-number" aria-hidden="true">05</div>
+      <div class="about-copy">
+        <p class="eyebrow" data-i18n="about.kicker">About</p>
+        <h2 id="about-title" data-i18n="about.title">Too many feelings. Five instruments. One band.</h2>
+        <p class="about-lead" data-i18n="about.body"></p>
+      </div>
+      <aside class="about-pullquote" data-i18n="about.pullquote">angry when it matters, goofy whenever possible</aside>
+    </section>
+
+    <section class="section photos-section" id="photos" aria-labelledby="photos-title">
+      <div class="section-heading">
+        <p class="eyebrow" data-i18n="photos.kicker">Evidence</p>
+        <h2 id="photos-title" data-i18n="photos.title">We do, in fact, exist.</h2>
+      </div>
+      <div class="photo-wall" data-gallery></div>
+    </section>
+
+    <section class="section socials-section" id="socials" aria-labelledby="socials-title">
+      <p class="eyebrow" data-i18n="socials.kicker">Elsewhere on the internet</p>
+      <h2 id="socials-title" data-i18n="socials.title">STALK US <span>— in the socially acceptable way</span></h2>
+      <div class="social-link-grid">
+        <a data-social="instagram" href="#" target="_blank" rel="noopener noreferrer"><span>Instagram</span><b>↗</b></a>
+        <a data-social="spotify" href="#" target="_blank" rel="noopener noreferrer"><span>Spotify</span><b>↗</b></a>
+        <a data-social="youtube" href="#" target="_blank" rel="noopener noreferrer"><span>YouTube</span><b>↗</b></a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div>
+      <strong>HEARTIFACTS</strong>
+      <p data-i18n="footer.location">Alternative rock · Bucharest, Romania</p>
+    </div>
+    <div class="footer-contact">
+      <span data-i18n="footer.booking">Booking / Press</span>
+      <a data-contact-email href="#" hidden></a>
+      <span data-contact-placeholder data-i18n="footer.contactSoon">Contact details coming soon.</span>
+    </div>
+    <p class="footer-note">© <span data-year></span> Heartifacts.</p>
+  </footer>
+
+  <dialog class="lightbox" data-lightbox aria-label="Photo viewer">
+    <button type="button" class="lightbox-close" data-lightbox-close aria-label="Close">×</button>
+    <img data-lightbox-image alt="">
+    <p data-lightbox-caption></p>
+  </dialog>
 </body>
 </html>
