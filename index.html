@@ -18,7 +18,7 @@
   <link rel="stylesheet" href="./styles.css">
   <link rel="stylesheet" href="./brand-pass.css">
   <link rel="stylesheet" href="./logo-plate.css">
-  <link rel="stylesheet" href="./brush-icons.css">
+  <link rel="stylesheet" href="./layout-pass.css">
   <script src="./content/en.js" defer></script>
   <script src="./content/ro.js" defer></script>
   <script src="./site-data.js" defer></script>
@@ -33,10 +33,10 @@
     </a>
 
     <nav class="desktop-nav" aria-label="Primary navigation">
-      <a href="#music" data-i18n="nav.music">Music</a>
-      <a href="#live" data-i18n="nav.live">Live</a>
-      <a href="#about" data-i18n="nav.about">About</a>
-      <a href="#photos" data-i18n="nav.photos">Photos</a>
+      <a href="#music" data-nav-link data-i18n="nav.music">Music</a>
+      <a href="#live" data-nav-link data-i18n="nav.live">Live</a>
+      <a href="#about" data-nav-link data-i18n="nav.about">About</a>
+      <a href="#photos" data-nav-link data-i18n="nav.photos">Photos</a>
     </nav>
 
     <div class="header-actions">
@@ -53,17 +53,19 @@
   </header>
 
   <div class="mobile-menu" id="mobile-menu" data-mobile-menu hidden>
-    <a href="#music" data-i18n="nav.music">Music</a>
-    <a href="#live" data-i18n="nav.live">Live</a>
-    <a href="#about" data-i18n="nav.about">About</a>
-    <a href="#photos" data-i18n="nav.photos">Photos</a>
-    <a data-social="instagram" href="#">Instagram</a>
-    <a data-social="spotify" href="#">Spotify</a>
-    <a data-social="youtube" href="#">YouTube</a>
+    <a href="#music" data-nav-link data-i18n="nav.music">Music</a>
+    <a href="#live" data-nav-link data-i18n="nav.live">Live</a>
+    <a href="#about" data-nav-link data-i18n="nav.about">About</a>
+    <a href="#photos" data-nav-link data-i18n="nav.photos">Photos</a>
+    <div class="mobile-menu-links">
+      <a data-social="instagram" href="#">Instagram</a>
+      <a data-social="spotify" data-keep-empty="true">Spotify</a>
+      <a data-social="youtube" href="#">YouTube</a>
+    </div>
   </div>
 
   <main id="main">
-    <section class="hero" id="top" aria-labelledby="hero-title">
+    <section class="hero compact-hero" id="top" aria-labelledby="hero-title">
       <div class="hero-noise" aria-hidden="true"></div>
       <div class="hero-copy">
         <p class="eyebrow" data-i18n="hero.eyebrow">Alternative rock · Bucharest</p>
@@ -72,14 +74,39 @@
         </h1>
         <p class="hero-tagline" data-i18n="hero.tagline">for people who feel everything a little too intensely</p>
         <p class="hero-positioning" data-i18n="hero.positioning">Five-piece alternative rock with pop-punk hooks, hard-rock weight and emotionally overcharged songs.</p>
-        <div class="hero-cta-row">
-          <a class="button button-primary" href="#music" data-i18n="actions.listen">Listen</a>
-          <a class="button button-ghost" data-release-youtube href="#" target="_blank" rel="noopener noreferrer" data-i18n="actions.watch">Watch</a>
-        </div>
-        <div class="hero-socials" aria-label="Heartifacts social links">
-          <a data-social="instagram" href="#" target="_blank" rel="noopener noreferrer">Instagram</a>
-          <a data-social="spotify" href="#" target="_blank" rel="noopener noreferrer">Spotify</a>
-          <a data-social="youtube" href="#" target="_blank" rel="noopener noreferrer">YouTube</a>
+
+        <div class="quick-link-deck" aria-label="Heartifacts links">
+          <a class="quick-link quick-instagram" data-social="instagram" href="#" target="_blank" rel="noopener noreferrer">
+            <span class="quick-icon paint-mark" aria-hidden="true">
+              <svg viewBox="0 0 48 48"><rect x="9" y="9" width="30" height="30" rx="9"></rect><circle cx="24" cy="24" r="7"></circle><circle class="icon-fill" cx="33.5" cy="14.7" r="2.2"></circle></svg>
+            </span>
+            <span class="quick-copy"><small data-i18n="quick.follow">Follow</small><strong>Instagram</strong></span>
+            <span class="quick-arrow" aria-hidden="true">↗</span>
+          </a>
+
+          <a class="quick-link quick-spotify" data-social="spotify" data-keep-empty="true" target="_blank" rel="noopener noreferrer">
+            <span class="quick-icon paint-mark" aria-hidden="true">
+              <svg viewBox="0 0 48 48"><path d="M11 19c9-3 20-2.6 28 1.2"></path><path d="M13 26c7.8-2.2 17-1.7 23.8 1.2"></path><path d="M16 32.5c6-1.4 12.7-1 18 1.2"></path></svg>
+            </span>
+            <span class="quick-copy"><small data-i18n="quick.listen">Listen</small><strong>Spotify</strong><em data-link-status></em></span>
+            <span class="quick-arrow" aria-hidden="true">↗</span>
+          </a>
+
+          <a class="quick-link quick-youtube" data-social="youtube" href="#" target="_blank" rel="noopener noreferrer">
+            <span class="quick-icon paint-mark" aria-hidden="true">
+              <svg viewBox="0 0 48 48"><path d="M9.5 15.5c6-2 23-2 29 0 2.5 5.5 2.5 11.5 0 17-6 2-23 2-29 0-2.3-5.3-2.3-11.7 0-17Z"></path><path class="icon-fill" d="m21 19 10 5-10 5Z"></path></svg>
+            </span>
+            <span class="quick-copy"><small data-i18n="quick.watch">Watch</small><strong>YouTube</strong></span>
+            <span class="quick-arrow" aria-hidden="true">↗</span>
+          </a>
+
+          <a class="quick-link quick-contact" data-contact-quick data-keep-empty="true">
+            <span class="quick-icon paint-mark" aria-hidden="true">
+              <svg viewBox="0 0 48 48"><path d="M9 14h30v21H9Z"></path><path d="m10 16 14 11 14-11"></path></svg>
+            </span>
+            <span class="quick-copy"><small data-i18n="quick.contact">Contact</small><strong data-i18n="footer.booking">Booking / Press</strong><em data-link-status></em></span>
+            <span class="quick-arrow" aria-hidden="true">↗</span>
+          </a>
         </div>
       </div>
 
@@ -97,137 +124,78 @@
       </div>
     </section>
 
-    <section class="section music-section" id="music" aria-labelledby="music-title">
-      <div class="section-heading">
-        <p class="eyebrow" data-i18n="music.kicker">Featured release</p>
-        <h2 id="music-title" data-i18n="music.title">Turn it up.</h2>
-      </div>
+    <section class="section now-section" aria-label="Music and live">
+      <div class="now-grid">
+        <article class="now-card release-panel" id="music" aria-labelledby="music-title">
+          <div class="now-card-heading">
+            <p class="eyebrow" data-i18n="music.kicker">Featured release</p>
+            <h2 id="music-title">RED FLAG</h2>
+          </div>
+          <div class="release-compact">
+            <div class="release-art-wrap">
+              <div class="release-art media-placeholder" data-release-art>
+                <span>RED FLAG</span>
+                <small data-i18n="placeholders.releaseArt">Artwork goes here</small>
+              </div>
+            </div>
+            <div class="release-copy">
+              <p class="release-label" data-i18n="music.latest">Latest release</p>
+              <h3 data-release-title>Red Flag</h3>
+              <p data-i18n="music.body">A sharp, angry song about betrayal, crossed boundaries and finally seeing the warning signs clearly.</p>
+              <div class="release-actions">
+                <a class="button button-primary" data-release-spotify href="#" target="_blank" rel="noopener noreferrer" data-i18n="actions.spotify">Listen on Spotify</a>
+                <a class="button button-outline" data-release-youtube href="#" target="_blank" rel="noopener noreferrer" data-i18n="actions.youtube">Watch on YouTube</a>
+              </div>
+            </div>
+          </div>
+        </article>
 
-      <div class="release-layout">
-        <div class="release-art-wrap">
-          <div class="release-art media-placeholder" data-release-art>
-            <span>RED FLAG</span>
-            <small data-i18n="placeholders.releaseArt">Artwork goes here</small>
+        <article class="now-card live-panel" id="live" aria-labelledby="live-title">
+          <div class="live-scribble" aria-hidden="true">LIVE!</div>
+          <div class="now-card-heading">
+            <p class="eyebrow" data-i18n="live.kicker">Next up</p>
+            <h2 id="live-title" data-i18n="live.title">Come scream with us.</h2>
           </div>
-        </div>
-        <div class="release-copy">
-          <p class="release-label" data-i18n="music.latest">Latest release</p>
-          <h3 data-release-title>Red Flag</h3>
-          <p data-i18n="music.body">A sharp, angry song about betrayal, crossed boundaries and finally seeing the warning signs clearly.</p>
-          <div class="release-actions">
-            <a class="button button-primary" data-release-spotify href="#" target="_blank" rel="noopener noreferrer" data-i18n="actions.spotify">Listen on Spotify</a>
-            <a class="button button-outline" data-release-youtube href="#" target="_blank" rel="noopener noreferrer" data-i18n="actions.youtube">Watch on YouTube</a>
-          </div>
-        </div>
+          <div class="shows" data-shows></div>
+        </article>
       </div>
     </section>
 
-    <section class="section live-section" id="live" aria-labelledby="live-title">
-      <div class="live-scribble" aria-hidden="true">LIVE!</div>
-      <div class="section-heading section-heading-light">
-        <p class="eyebrow" data-i18n="live.kicker">Next up</p>
-        <h2 id="live-title" data-i18n="live.title">Come scream with us.</h2>
-      </div>
-      <div class="shows" data-shows></div>
-    </section>
-
-    <section class="section about-section" id="about" aria-labelledby="about-title">
-      <div class="about-number" aria-hidden="true">05</div>
-      <div class="about-copy">
+    <section class="section story-section" aria-label="About Heartifacts and photos">
+      <article class="story-about" id="about" aria-labelledby="about-title">
+        <div class="about-number" aria-hidden="true">05</div>
         <p class="eyebrow" data-i18n="about.kicker">About</p>
         <h2 id="about-title" data-i18n="about.title">Too many feelings. Five instruments. One band.</h2>
         <p class="about-lead" data-i18n="about.body"></p>
-      </div>
-      <aside class="about-pullquote" data-i18n="about.pullquote">angry when it matters, goofy whenever possible</aside>
-    </section>
+        <aside class="about-pullquote" data-i18n="about.pullquote">angry when it matters, goofy whenever possible</aside>
+      </article>
 
-    <section class="section photos-section" id="photos" aria-labelledby="photos-title">
-      <div class="section-heading">
-        <p class="eyebrow" data-i18n="photos.kicker">Evidence</p>
-        <h2 id="photos-title" data-i18n="photos.title">We do, in fact, exist.</h2>
-      </div>
-      <div class="photo-wall" data-gallery></div>
-    </section>
-
-    <section class="section socials-section social-icons-section" id="socials" aria-labelledby="socials-title">
-      <div class="socials-intro">
-        <p class="eyebrow" data-i18n="socials.kicker">Elsewhere on the internet</p>
-        <h2 id="socials-title" data-i18n="socials.title">Connect with us.</h2>
-        <p class="socials-note" data-i18n="socials.note">Music, rehearsal chaos and whatever else escapes the group chat.</p>
-      </div>
-
-      <div class="social-icon-grid" aria-label="Heartifacts social links">
-        <a class="social-icon-card social-instagram" data-social="instagram" href="#" target="_blank" rel="noopener noreferrer" aria-label="Heartifacts on Instagram">
-          <span class="social-icon-splash" aria-hidden="true">
-            <svg class="brush-social-icon" viewBox="0 0 100 100" role="img">
-              <defs>
-                <filter id="rough-instagram" x="-20%" y="-20%" width="140%" height="140%">
-                  <feTurbulence type="fractalNoise" baseFrequency="0.035 0.11" numOctaves="2" seed="7" result="noise"></feTurbulence>
-                  <feDisplacementMap in="SourceGraphic" in2="noise" scale="2.3" xChannelSelector="R" yChannelSelector="G"></feDisplacementMap>
-                </filter>
-              </defs>
-              <g class="brush-icon-strokes" filter="url(#rough-instagram)">
-                <path d="M28 18 C19 20 16 28 16 40 L17 65 C18 79 26 85 40 84 L65 83 C78 82 84 75 83 61 L82 38 C81 25 73 18 59 18 Z"></path>
-                <path d="M36 50 C36 39 43 32 53 32 C64 32 70 39 70 50 C70 61 63 68 52 68 C42 68 36 61 36 50 Z"></path>
-                <path class="brush-dot" d="M70 29 L71 29"></path>
-              </g>
-            </svg>
-          </span>
-          <span class="social-icon-label">Instagram</span>
-        </a>
-
-        <a class="social-icon-card social-spotify" data-social="spotify" href="#" target="_blank" rel="noopener noreferrer" aria-label="Heartifacts on Spotify">
-          <span class="social-icon-splash" aria-hidden="true">
-            <svg class="brush-social-icon" viewBox="0 0 100 100" role="img">
-              <defs>
-                <filter id="rough-spotify" x="-20%" y="-20%" width="140%" height="140%">
-                  <feTurbulence type="fractalNoise" baseFrequency="0.045 0.12" numOctaves="2" seed="11" result="noise"></feTurbulence>
-                  <feDisplacementMap in="SourceGraphic" in2="noise" scale="2.6" xChannelSelector="R" yChannelSelector="G"></feDisplacementMap>
-                </filter>
-              </defs>
-              <g class="brush-icon-strokes brush-icon-spotify" filter="url(#rough-spotify)">
-                <path d="M19 34 C37 28 61 29 81 38"></path>
-                <path d="M23 50 C39 45 59 46 76 53"></path>
-                <path d="M28 65 C42 61 57 62 70 68"></path>
-              </g>
-            </svg>
-          </span>
-          <span class="social-icon-label">Spotify</span>
-        </a>
-
-        <a class="social-icon-card social-youtube" data-social="youtube" href="#" target="_blank" rel="noopener noreferrer" aria-label="Heartifacts on YouTube">
-          <span class="social-icon-splash" aria-hidden="true">
-            <svg class="brush-social-icon" viewBox="0 0 100 100" role="img">
-              <defs>
-                <filter id="rough-youtube" x="-20%" y="-20%" width="140%" height="140%">
-                  <feTurbulence type="fractalNoise" baseFrequency="0.04 0.10" numOctaves="2" seed="19" result="noise"></feTurbulence>
-                  <feDisplacementMap in="SourceGraphic" in2="noise" scale="2.4" xChannelSelector="R" yChannelSelector="G"></feDisplacementMap>
-                </filter>
-              </defs>
-              <g class="brush-icon-strokes" filter="url(#rough-youtube)">
-                <path d="M22 28 C31 25 69 25 78 29 C84 34 85 65 79 72 C68 76 31 76 21 71 C16 64 16 37 22 28 Z"></path>
-                <path class="brush-play" d="M45 39 L65 50 L45 62 Z"></path>
-              </g>
-            </svg>
-          </span>
-          <span class="social-icon-label">YouTube</span>
-        </a>
-      </div>
+      <article class="story-photos" id="photos" aria-labelledby="photos-title">
+        <div class="story-photo-heading">
+          <p class="eyebrow" data-i18n="photos.kicker">Evidence</p>
+          <h2 id="photos-title" data-i18n="photos.title">We do, in fact, exist.</h2>
+        </div>
+        <div class="photo-wall" data-gallery></div>
+      </article>
     </section>
   </main>
 
-  <footer class="site-footer">
+  <footer class="site-footer compact-footer">
     <div class="footer-brand-wrap">
       <span class="logo-plate logo-plate-footer">
         <img class="brand-logo brand-logo-footer" src="./assets/brand/Heartifacts_Logo.svg" alt="Heartifacts">
       </span>
       <p data-i18n="footer.location">Alternative rock · Bucharest, Romania</p>
     </div>
-    <div class="footer-contact">
-      <span data-i18n="footer.booking">Booking / Press</span>
+
+    <nav class="footer-links" aria-label="Heartifacts links">
+      <a data-social="instagram" href="#" target="_blank" rel="noopener noreferrer">Instagram</a>
+      <a data-social="spotify" data-keep-empty="true" target="_blank" rel="noopener noreferrer">Spotify</a>
+      <a data-social="youtube" href="#" target="_blank" rel="noopener noreferrer">YouTube</a>
       <a data-contact-email href="#" hidden></a>
       <span data-contact-placeholder data-i18n="footer.contactSoon">Contact details coming soon.</span>
-    </div>
+    </nav>
+
     <p class="footer-note">© <span data-year></span> Heartifacts.</p>
   </footer>
 
