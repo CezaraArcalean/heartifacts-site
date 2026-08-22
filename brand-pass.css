@@ -1,0 +1,295 @@
+/*
+  Heartifacts visual-identity pass.
+  This file intentionally layers over styles.css so the core layout remains easy to audit/revert.
+*/
+
+:root {
+  --ink: #08070f;
+  --ink-2: #11101a;
+  --paper: #f7f4f2;
+  --paper-2: #d6d0d9;
+  --blue: #278cff;
+  --blue-deep: #143fba;
+  --pink: #ef31c7;
+  --pink-hot: #ff2dbd;
+  --purple: #7c32d8;
+  --purple-deep: #321268;
+  --display: Arial, Helvetica, sans-serif;
+  --riot: "Heartifacts Riot", "Arial Narrow", Arial, sans-serif;
+}
+
+@font-face {
+  font-family: "Heartifacts Riot";
+  src: url("./assets/fonts/HeartifactsRiot-Regular.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+/* --- restrained texture system --- */
+.hero::after,
+.music-section::after,
+.photos-section::after,
+.social-icons-section::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: .12;
+  mix-blend-mode: screen;
+  background-image:
+    radial-gradient(circle at 14% 18%, rgba(255,255,255,.6) 0 1px, transparent 1.6px),
+    radial-gradient(circle at 79% 37%, rgba(255,255,255,.35) 0 1px, transparent 1.8px),
+    radial-gradient(circle at 39% 76%, rgba(239,49,199,.75) 0 1.3px, transparent 2px),
+    radial-gradient(circle at 68% 83%, rgba(39,140,255,.7) 0 1.2px, transparent 2px);
+  background-size: 73px 67px, 97px 89px, 131px 119px, 149px 137px;
+}
+
+.hero::before,
+.social-icons-section::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  pointer-events: none;
+  width: clamp(240px, 34vw, 560px);
+  height: clamp(140px, 18vw, 300px);
+  filter: blur(.2px);
+  opacity: .28;
+  background:
+    radial-gradient(ellipse at 24% 54%, rgba(239,49,199,.9) 0 12%, transparent 13%),
+    radial-gradient(ellipse at 56% 38%, rgba(124,50,216,.8) 0 17%, transparent 18%),
+    radial-gradient(ellipse at 78% 62%, rgba(39,140,255,.8) 0 16%, transparent 17%);
+  transform: rotate(-8deg) scale(1.2);
+}
+
+.hero::before { right: -8%; top: 12%; }
+.social-icons-section::before { left: -10%; bottom: -6%; transform: rotate(8deg) scale(1.25); }
+
+.hero,
+.music-section,
+.photos-section,
+.social-icons-section { position: relative; isolation: isolate; }
+.hero > *,
+.music-section > *,
+.photos-section > *,
+.social-icons-section > * { position: relative; z-index: 1; }
+
+/* --- official logo usage --- */
+.brand-logo-link { min-width: 150px; }
+.brand-logo {
+  display: block;
+  max-width: 100%;
+  object-fit: contain;
+}
+.brand-logo-header { width: clamp(132px, 11vw, 178px); max-height: 42px; object-position: left center; }
+.brand-logo-hero { width: min(690px, 100%); max-height: 220px; object-position: left center; }
+.brand-logo-placeholder { width: min(430px, 78%); max-height: 160px; margin: auto; }
+.brand-logo-footer { width: min(220px, 70vw); max-height: 74px; object-position: left center; }
+.brand-logo-fallback {
+  font-family: var(--riot);
+  font-weight: 400;
+  letter-spacing: .02em;
+}
+.brand-logo-link .brand-logo-fallback { font-size: 1.35rem; }
+.hero-logo-heading .brand-logo-fallback { font-size: clamp(4rem, 10vw, 8.4rem); line-height: .82; }
+.footer-brand-wrap .brand-logo-fallback { font-size: 2rem; }
+
+.hero-title {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: 1;
+  letter-spacing: 0;
+  text-transform: none;
+}
+.hero-logo-heading { max-width: 720px; margin: 0; }
+.placeholder-logo-wrap { width: 100%; display: grid; place-items: center; z-index: 1; }
+.placeholder-logo-wrap .brand-logo-fallback { font-size: clamp(3.2rem, 8vw, 6.7rem); }
+
+/* Clean readable typography remains the baseline. Riot is an accent, not a blanket font. */
+.brand-word,
+.mobile-menu a,
+.section-heading h2,
+.about-copy h2,
+.socials-section h2,
+.site-footer strong,
+.gallery-placeholder {
+  font-family: var(--display);
+  font-weight: 800;
+}
+
+.release-copy h3,
+.release-art > span,
+.live-scribble {
+  font-family: var(--riot);
+  font-weight: 400;
+  letter-spacing: .015em;
+}
+.release-copy h3 { font-size: clamp(4.5rem, 9vw, 8.2rem); }
+.release-art > span { font-size: clamp(3rem, 7vw, 6.5rem); }
+.live-scribble {
+  font-size: clamp(4.5rem, 10vw, 9rem);
+  opacity: .78;
+  color: rgba(8,7,15,.32);
+}
+
+/* Tune loud color blocks toward supplied artwork. */
+body {
+  background:
+    radial-gradient(circle at 76% 5%, rgba(124,50,216,.22), transparent 26rem),
+    radial-gradient(circle at 10% 26%, rgba(39,140,255,.13), transparent 24rem),
+    var(--ink);
+}
+.button-primary { background: var(--pink-hot); box-shadow: 5px 5px 0 var(--blue); }
+.live-section {
+  background:
+    linear-gradient(125deg, rgba(39,140,255,.95), rgba(70,71,224,.94) 48%, rgba(124,50,216,.96));
+}
+.about-pullquote { background: var(--pink-hot); box-shadow: 7px 7px 0 var(--blue); }
+
+/* --- icon-led social section --- */
+.social-icons-section {
+  overflow: hidden;
+  background:
+    linear-gradient(135deg, #e82cca 0%, #ec32c8 55%, #ca39df 100%);
+  color: white;
+}
+.socials-intro {
+  max-width: var(--max);
+  margin: 0 auto clamp(3rem, 6vw, 5rem);
+}
+.social-icons-section .eyebrow { color: rgba(8,7,15,.82); }
+.social-icons-section h2 {
+  margin: 0;
+  max-width: 820px;
+  font-family: var(--display);
+  font-size: clamp(3.1rem, 7vw, 6.2rem);
+  line-height: .92;
+  letter-spacing: -.045em;
+  text-transform: none;
+  font-weight: 850;
+}
+.socials-note {
+  max-width: 620px;
+  margin: 1rem 0 0;
+  color: rgba(255,255,255,.86);
+  font-size: clamp(1rem, 1.8vw, 1.2rem);
+}
+.social-icon-grid {
+  max-width: 980px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.5rem, 5vw, 4rem);
+  align-items: start;
+}
+.social-icon-card {
+  display: grid;
+  justify-items: center;
+  gap: 1rem;
+  color: white;
+  text-decoration: none;
+  text-align: center;
+}
+.social-icon-splash {
+  position: relative;
+  width: clamp(118px, 15vw, 176px);
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  isolation: isolate;
+  transition: transform .2s ease;
+}
+.social-icon-splash::before,
+.social-icon-splash::after {
+  content: "";
+  position: absolute;
+  inset: 7%;
+  z-index: -1;
+}
+.social-icon-splash::before {
+  border-radius: 48% 52% 43% 57% / 58% 43% 57% 42%;
+  transform: rotate(-7deg);
+  box-shadow: 0 13px 0 rgba(8,7,15,.16);
+}
+.social-icon-splash::after {
+  inset: -3%;
+  opacity: .55;
+  background-image:
+    radial-gradient(circle, currentColor 0 2px, transparent 2.8px),
+    radial-gradient(circle, currentColor 0 1.2px, transparent 2px);
+  background-size: 31px 29px, 43px 39px;
+  mask-image: radial-gradient(circle at center, transparent 0 54%, black 68% 100%);
+  -webkit-mask-image: radial-gradient(circle at center, transparent 0 54%, black 68% 100%);
+}
+.social-instagram .social-icon-splash { color: #6323c4; }
+.social-instagram .social-icon-splash::before { background: linear-gradient(145deg, #6e36e8, #ff38bf); }
+.social-spotify .social-icon-splash { color: #245bd3; }
+.social-spotify .social-icon-splash::before { background: linear-gradient(145deg, #269cff, #3953df); transform: rotate(4deg); }
+.social-youtube .social-icon-splash { color: #941ca8; }
+.social-youtube .social-icon-splash::before { background: linear-gradient(145deg, #b92bd8, #6f32d9); transform: rotate(-3deg); }
+.social-icon-card:hover .social-icon-splash { transform: translateY(-5px) rotate(-2deg) scale(1.025); }
+.social-icon-card:nth-child(2):hover .social-icon-splash { transform: translateY(-5px) rotate(2deg) scale(1.025); }
+.social-icon-card svg {
+  width: 52%;
+  height: 52%;
+  overflow: visible;
+  fill: none;
+  stroke: white;
+  stroke-width: 1.9;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.social-icon-card svg .icon-dot { fill: white; stroke: none; }
+.social-youtube svg > path:first-child { fill: none; }
+.social-youtube svg .icon-play { fill: white; stroke: white; }
+.social-icon-label {
+  font-family: var(--body);
+  font-size: .9rem;
+  font-weight: 800;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+
+/* Remove the previous huge Riot social rows completely; this is intentionally calmer. */
+.social-link-grid { display: none; }
+
+/* Footer/contact should feel utility-first, not like another poster. */
+.site-footer {
+  background: #07060d;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  padding-top: 2.4rem;
+  padding-bottom: 2.4rem;
+}
+.footer-brand-wrap p { margin-top: .5rem; }
+.footer-contact {
+  padding-left: 2rem;
+  border-left: 1px solid rgba(255,255,255,.15);
+}
+.footer-contact > span:first-child {
+  color: #8e8797;
+  font-size: .68rem;
+  font-weight: 800;
+}
+.footer-contact a { font-size: 1rem; font-weight: 700; text-decoration-thickness: 1px; text-underline-offset: 4px; }
+.footer-contact [data-contact-placeholder] { margin-top: .3rem; text-transform: none; letter-spacing: normal; color: #aaa3b0; font-size: .82rem; }
+
+@media (max-width: 820px) {
+  .brand-logo-header { width: 145px; }
+  .brand-logo-hero { max-height: 165px; }
+  .social-icon-grid { gap: 1.5rem; }
+}
+
+@media (max-width: 640px) {
+  .social-icon-grid { grid-template-columns: repeat(3, 1fr); gap: .8rem; }
+  .social-icon-splash { width: min(27vw, 118px); }
+  .social-icon-label { font-size: .68rem; }
+  .site-footer { grid-template-columns: 1fr; }
+  .footer-contact { padding-left: 0; padding-top: 1rem; border-left: 0; border-top: 1px solid rgba(255,255,255,.15); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .social-icon-card:hover .social-icon-splash,
+  .social-icon-card:nth-child(2):hover .social-icon-splash { transform: none; }
+}
