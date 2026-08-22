@@ -45,7 +45,8 @@ window.HeartifactsContent.ro = {
   },
   socials: {
     kicker: "Și prin alte colțuri ale internetului",
-    title: "STALK US <span>— în modul social acceptabil</span>"
+    title: "Ne găsești și aici.",
+    note: "Muzică, haos de repetiții și tot ce mai scapă din group chat."
   },
   footer: {
     location: "Alternative rock · București, România",
