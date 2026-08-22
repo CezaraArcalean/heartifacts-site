@@ -1,5 +1,10 @@
 /* Heartifacts social icon treatment: recognizable marks drawn as rough paint strokes. */
 
+/* Author-level display rules must never resurrect elements hidden by site.js. */
+[hidden] {
+  display: none !important;
+}
+
 .brush-social-icon {
   width: 64% !important;
   height: 64% !important;
