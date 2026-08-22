@@ -10,6 +10,13 @@ window.HeartifactsContent.ro = {
     tagline: "pentru oamenii care simt totul puțin prea intens",
     positioning: "Alternative rock în cinci, cu hook-uri pop-punk, greutate hard-rock și piese încărcate emoțional."
   },
+  quick: {
+    follow: "Urmărește",
+    listen: "Ascultă",
+    watch: "Vezi",
+    contact: "Contact",
+    soon: "Link în curând"
+  },
   actions: {
     listen: "Ascultă",
     watch: "Vezi",
