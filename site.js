@@ -28,6 +28,16 @@
     window.history.replaceState({}, '', url);
   };
 
+  const updateQuickStatuses = (language) => {
+    const dictionary = dictionaries[language] || dictionaries.en;
+    const soonText = dictionary && dictionary.quick ? dictionary.quick.soon : 'Link soon';
+
+    document.querySelectorAll('.quick-link [data-link-status]').forEach((status) => {
+      const card = status.closest('.quick-link');
+      status.textContent = card && card.classList.contains('is-disabled') ? soonText : '';
+    });
+  };
+
   const applyLanguage = (language, persist = false) => {
     const dictionary = dictionaries[language] || dictionaries.en;
     if (!dictionary) return;
@@ -46,18 +56,7 @@
     document.querySelectorAll('[data-i18n]').forEach((element) => {
       const value = getNestedValue(dictionary, element.dataset.i18n);
       if (typeof value !== 'string') return;
-
-      if (element.dataset.i18n === 'socials.title') {
-        const parts = value.split('<span>');
-        element.textContent = parts[0];
-        if (parts[1]) {
-          const span = document.createElement('span');
-          span.textContent = parts[1].replace('</span>', '');
-          element.append(span);
-        }
-      } else {
-        element.textContent = value;
-      }
+      element.textContent = value;
     });
 
     document.querySelectorAll('[data-lang]').forEach((button) => {
@@ -68,6 +67,7 @@
 
     renderShows(language);
     renderGallery(language);
+    updateQuickStatuses(language);
 
     if (persist) {
       try { window.localStorage.setItem(languageStorageKey, language); } catch (_) {}
@@ -77,12 +77,25 @@
 
   const setLink = (element, url) => {
     if (!element) return;
+
     if (!url) {
-      element.hidden = true;
       element.removeAttribute('href');
+
+      if (element.dataset.keepEmpty === 'true') {
+        element.hidden = false;
+        element.classList.add('is-disabled');
+        element.setAttribute('aria-disabled', 'true');
+        element.removeAttribute('target');
+        element.removeAttribute('rel');
+      } else {
+        element.hidden = true;
+      }
       return;
     }
+
     element.hidden = false;
+    element.classList.remove('is-disabled');
+    element.removeAttribute('aria-disabled');
     element.href = url;
   };
 
@@ -98,15 +111,27 @@
     const releaseTitle = document.querySelector('[data-release-title]');
     if (releaseTitle && data.featuredRelease && data.featuredRelease.title) releaseTitle.textContent = data.featuredRelease.title;
 
+    const email = data.contact && data.contact.email;
+    const quickContact = document.querySelector('[data-contact-quick]');
+    setLink(quickContact, email ? `mailto:${email}` : '');
+
     const emailLink = document.querySelector('[data-contact-email]');
     const emailPlaceholder = document.querySelector('[data-contact-placeholder]');
-    const email = data.contact && data.contact.email;
     if (email) {
-      emailLink.hidden = false;
-      emailLink.href = `mailto:${email}`;
-      emailLink.textContent = email;
+      if (emailLink) {
+        emailLink.hidden = false;
+        emailLink.href = `mailto:${email}`;
+        emailLink.textContent = email;
+      }
       if (emailPlaceholder) emailPlaceholder.hidden = true;
+    } else {
+      if (emailLink) emailLink.hidden = true;
+      if (emailPlaceholder) emailPlaceholder.hidden = false;
     }
+
+    document.querySelectorAll('.is-disabled').forEach((element) => {
+      element.addEventListener('click', (event) => event.preventDefault());
+    });
   };
 
   const hydrateMedia = () => {
@@ -194,7 +219,7 @@
 
     const dictionary = dictionaries[language] || dictionaries.en;
     const gallery = Array.isArray(data.gallery) ? data.gallery : [];
-    const items = gallery.length ? gallery.slice(0, 8) : Array.from({ length: 4 }, (_, index) => ({ placeholder: true, index }));
+    const items = gallery.length ? gallery.slice(0, 4) : Array.from({ length: 4 }, (_, index) => ({ placeholder: true, index }));
 
     items.forEach((item, index) => {
       const figure = document.createElement('figure');
@@ -284,6 +309,33 @@
     window.addEventListener('resize', () => { if (window.innerWidth > 820) closeMenu(); }, { passive: true });
   };
 
+  const setupSectionNavigation = () => {
+    if (!('IntersectionObserver' in window)) return;
+
+    const links = Array.from(document.querySelectorAll('[data-nav-link]'));
+    const sections = ['music', 'live', 'about', 'photos']
+      .map((id) => document.getElementById(id))
+      .filter(Boolean);
+
+    const setCurrent = (id) => {
+      links.forEach((link) => {
+        const isCurrent = link.getAttribute('href') === `#${id}`;
+        link.classList.toggle('is-current', isCurrent);
+        if (isCurrent) link.setAttribute('aria-current', 'location');
+        else link.removeAttribute('aria-current');
+      });
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      const visible = entries
+        .filter((entry) => entry.isIntersecting)
+        .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+      if (visible && visible.target.id) setCurrent(visible.target.id);
+    }, { rootMargin: '-18% 0px -58% 0px', threshold: [0, .12, .3, .55] });
+
+    sections.forEach((section) => observer.observe(section));
+  };
+
   const setupLanguageButtons = () => {
     document.querySelectorAll('[data-lang]').forEach((button) => {
       button.addEventListener('click', () => applyLanguage(button.dataset.lang, true));
@@ -291,11 +343,13 @@
   };
 
   const initialLanguage = resolveInitialLanguage();
-  document.querySelector('[data-year]').textContent = new Date().getFullYear();
+  const year = document.querySelector('[data-year]');
+  if (year) year.textContent = new Date().getFullYear();
   hydrateLinks();
   hydrateMedia();
   setupMenu();
   setupLightbox();
+  setupSectionNavigation();
   setupLanguageButtons();
   applyLanguage(initialLanguage);
 })();
