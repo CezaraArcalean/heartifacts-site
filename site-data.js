@@ -46,12 +46,12 @@ window.HeartifactsSiteData = {
       caption: { en: "", ro: "" }
     },
     {
-      src: "./assets/photos/IMG_4153_medium.webp",
+      src: "./assets/photos/IMG_4706_medium.webp",
       alt: { en: "Heartifacts band photo", ro: "Fotografie cu trupa Heartifacts" },
       caption: { en: "", ro: "" }
     },
     {
-      src: "./assets/photos/IMG_4706_medium.webp",
+      src: "./assets/photos/IMG_4153_medium.webp",
       alt: { en: "Heartifacts band photo", ro: "Fotografie cu trupa Heartifacts" },
       caption: { en: "", ro: "" }
     }
