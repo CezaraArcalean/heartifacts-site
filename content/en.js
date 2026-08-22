@@ -10,6 +10,13 @@ window.HeartifactsContent.en = {
     tagline: "for people who feel everything a little too intensely",
     positioning: "Five-piece alternative rock with pop-punk hooks, hard-rock weight and emotionally overcharged songs."
   },
+  quick: {
+    follow: "Follow",
+    listen: "Listen",
+    watch: "Watch",
+    contact: "Contact",
+    soon: "Link soon"
+  },
   actions: {
     listen: "Listen",
     watch: "Watch",
