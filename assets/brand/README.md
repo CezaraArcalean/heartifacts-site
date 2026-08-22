@@ -19,6 +19,19 @@ Allowed treatment includes:
 
 If a composition containing the logo needs to change, edit the composition around the logo rather than the logo artwork.
 
+## When the band name appears as a heading
+
+When **Heartifacts itself is the title / heading / primary brand label**, use the supplied official logo rather than typing the band name in Heartifacts Riot or another display font.
+
+This currently applies to:
+
+- the main hero identity;
+- the header brand mark;
+- footer brand identity;
+- other future title-level appearances of the band name.
+
+Heartifacts Riot remains a separate display accent for song titles, LIVE moments, short labels and selected decorative text. The typeface should not be used as a substitute for the official logo.
+
 ## Visual direction
 
 The established Heartifacts identity is built around:
@@ -32,6 +45,8 @@ The established Heartifacts identity is built around:
 - energetic, playful composition rather than corporate polish.
 
 The website should use these colors intentionally. Not every section needs to be equally loud: quieter black or light zones make the saturated artwork hit harder.
+
+Texture should normally appear as **detail and atmosphere**, not as a full-strength texture pasted behind every section. Small granular speckles, spray edges, imperfect color fields and occasional brush-like shapes are preferred over constant visual noise.
 
 ## Source vs website files
 
