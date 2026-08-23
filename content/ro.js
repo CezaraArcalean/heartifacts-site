@@ -33,7 +33,7 @@ window.HeartifactsContent.ro = {
     kicker: "Muzica noastră",
     title: "Dă-i mai tare.",
     latest: "Cel mai recent release",
-    body: "O piesă tăioasă și furioasă despre trădare, limite încălcate și momentul în care vezi clar toate semnalele de alarmă.",
+    body: "O piesă despre momentul în care îți dai seama că o persoană în care ai avut încredere nu e cine credeai.",
     releaseFallback: "Muzică nouă de la Heartifacts."
   },
   live: {
@@ -45,9 +45,9 @@ window.HeartifactsContent.ro = {
   },
   about: {
     kicker: "Despre noi",
-    title: "Prea multe sentimente. Cinci instrumente. O trupă.",
-    body: "Heartifacts este o trupă de alternative rock în cinci din București, cu hook-uri pop-punk, greutate hard-rock și câte un colț mai heavy pe ici, pe colo. Piesele trăiesc totul la maximum: frustrare, overthinking, limite, heartbreak, catharsis — toate lucrurile distractive. În afara pieselor suntem considerabil mai puțin dramatici: prietenoși, goofy și foarte bucuroși să facem gălăgie împreună. Dacă îți place rock-ul catchy, energic și puțin supraîncărcat emoțional, probabil ai ajuns unde trebuie.",
-    pullquote: "furioși când contează, goofy ori de câte ori se poate"
+    title: "Oameni: cinci. Trupă: una. Muzică: tare.",
+    body: "Suntem Heartifacts, cinci oameni din București care fac muzică pop-punk-ish pentru că, aparent, să le urlăm oamenilor în față tot ce simțim nu era o opțiune. Ne plac refrenele catchy, chitările date tare, energia haotică și câte un moment mai heavy când piesa îl cere. Pe parcurs, niște piese au reușit să scape din mințile noastre distrate și, până să ne prindem, deja n-aveam ce să le mai facem. Când nu suntem pe scenă, suntem ceva mai puțin dramatici: multe glume, distracție la repetiții și entuziasm care dă pe dinafară de fiecare dată când ne iese bine o piesă.",
+    pullquote: "muzica o luăm în serios. pe noi, mai puțin."
   },
   photos: {
     kicker: "Dovezi",
