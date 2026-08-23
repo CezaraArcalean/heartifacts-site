@@ -29,14 +29,14 @@ window.HeartifactsContent.ro = {
     releaseArt: "Aici vine artwork-ul"
   },
   music: {
-    kicker: "Piesa în prim-plan",
+    kicker: "Muzica noastră",
     title: "Dă-i mai tare.",
     latest: "Cel mai recent release",
     body: "O piesă tăioasă și furioasă despre trădare, limite încălcate și momentul în care vezi clar toate semnalele de alarmă."
   },
   live: {
-    kicker: "Urmează",
-    title: "Vino să țipi cu noi.",
+    kicker: "Live",
+    title: "Concerte viitoare",
     noShows: "Se gătesc concerte noi — urmărește-ne pe Instagram."
   },
   about: {
@@ -58,6 +58,6 @@ window.HeartifactsContent.ro = {
   footer: {
     location: "Alternative rock · București, România",
     booking: "Booking / Presă",
-    contactSoon: "Datele de contact apar în curând."
+    contactSoon: "Datele de booking apar în curând."
   }
 };
