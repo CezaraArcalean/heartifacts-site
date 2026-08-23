@@ -31,21 +31,25 @@ window.HeartifactsSiteData = {
   gallery: [
     {
       src: "./assets/photos/IMG_3408_medium.webp",
+      small: "./assets/photos/IMG_3408_small.webp",
       alt: { en: "Heartifacts band photo", ro: "Fotografie cu trupa Heartifacts" },
       caption: { en: "", ro: "" }
     },
     {
       src: "./assets/photos/IMG_3730_medium.webp",
+      small: "./assets/photos/IMG_3730_small.webp",
       alt: { en: "Heartifacts band photo", ro: "Fotografie cu trupa Heartifacts" },
       caption: { en: "", ro: "" }
     },
     {
       src: "./assets/photos/IMG_4153_medium.webp",
+      small: "./assets/photos/IMG_4153_small.webp",
       alt: { en: "Heartifacts band photo", ro: "Fotografie cu trupa Heartifacts" },
       caption: { en: "", ro: "" }
     },
     {
       src: "./assets/photos/IMG_4706_medium.webp",
+      small: "./assets/photos/IMG_4706_small.webp",
       alt: { en: "Heartifacts band photo", ro: "Fotografie cu trupa Heartifacts" },
       caption: { en: "", ro: "" }
     }
