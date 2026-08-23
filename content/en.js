@@ -45,7 +45,7 @@ window.HeartifactsContent.en = {
   },
   about: {
     kicker: "About",
-    title: "People: five. Band: one. Music: loud.",
+    title: "People: five\nBand: one\nMusic: loud",
     body: "We’re Heartifacts, five people from Bucharest making pop-punk-ish music because apparently shouting your feelings in people’s faces wasn’t an option. We like catchy choruses, loud guitars, chaotic energy and the occasional heavier bit when the song asks for it. Along the way, some songs escaped our distracted minds, and it was too late to rein them in. Offstage, we’re considerably less dramatic: mostly jokes, rehearsal shenanigans and getting super excited whenever a song finally clicks.",
     pullquote: "we take the music seriously. ourselves, less so."
   },
