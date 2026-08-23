@@ -4,7 +4,7 @@ window.HeartifactsContent.en = {
     title: "Heartifacts — Alternative Rock from Bucharest",
     description: "Heartifacts is a five-piece alternative rock band from Bucharest, blending pop-punk hooks, hard-rock weight and emotionally overcharged songs."
   },
-  nav: { music: "Music", live: "Live", about: "About", photos: "Photos", menu: "Menu" },
+  nav: { music: "Music", live: "Gigs", about: "About", photos: "Photos", contact: "Contact", menu: "Menu" },
   hero: {
     eyebrow: "Alternative rock · Bucharest",
     tagline: "for people who feel everything a little too intensely",
@@ -35,9 +35,9 @@ window.HeartifactsContent.en = {
     body: "A sharp, angry song about betrayal, crossed boundaries and finally seeing the warning signs clearly."
   },
   live: {
-    kicker: "Live",
-    title: "Upcoming shows",
-    noShows: "More shows are being cooked up — follow us on Instagram."
+    kicker: "Gigs",
+    title: "Upcoming gigs",
+    noShows: "More gigs are being cooked up — follow us on Instagram."
   },
   about: {
     kicker: "About",
@@ -58,6 +58,8 @@ window.HeartifactsContent.en = {
   footer: {
     location: "Alternative rock · Bucharest, Romania",
     booking: "Booking / Press",
-    contactSoon: "Booking details coming soon."
+    contactLead: "Want to book us, write about us, or get in touch?",
+    contactSoon: "Booking details coming soon.",
+    findUs: "Find us"
   }
 };
