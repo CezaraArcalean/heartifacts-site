@@ -1,0 +1,249 @@
+/*
+  Heartifacts V1 mobile production polish.
+  Loaded last so these rules only correct narrow-screen composition without
+  disturbing the approved desktop layout.
+*/
+
+/* This is editorial copy, not an action. Keep it visually distinct from CTAs. */
+.story-about .about-pullquote {
+  background: rgba(255,255,255,.018);
+  color: #fff;
+  border: 1px solid rgba(239,49,199,.72);
+  border-left: 4px solid var(--poster-pink);
+  box-shadow: none;
+  transform: rotate(-.35deg);
+}
+
+.story-about .about-pullquote:hover {
+  transform: rotate(-.35deg);
+  box-shadow: none;
+}
+
+@media (max-width: 820px) {
+  /* Keep in-page navigation clear of the fixed header. */
+  .music-panel,
+  .live-panel,
+  .story-about,
+  .story-photos {
+    scroll-margin-top: 108px;
+  }
+
+  /* The previous negative margin pulled the identity line onto the photo. */
+  .poster-brand-block {
+    margin: .7rem 0 0;
+  }
+
+  .poster-brand-block .eyebrow {
+    margin-top: 0;
+    margin-bottom: .65rem;
+  }
+
+  .poster-logo-heading {
+    margin-top: 0;
+  }
+
+  .photo-tag-blue { left: -.45rem; }
+  .photo-tag-pink { right: -.45rem; }
+}
+
+@media (max-width: 620px) {
+  /* Hero: deliberate separation between photo, identity line and wordmark. */
+  .poster-photo-wrap {
+    width: 92%;
+  }
+
+  .poster-brand-block {
+    margin-top: .85rem;
+    padding-inline: .55rem;
+  }
+
+  .poster-brand-block .eyebrow {
+    margin-bottom: .7rem;
+    font-size: .67rem;
+    line-height: 1.25;
+    letter-spacing: .16em;
+  }
+
+  .poster-logo-heading {
+    width: 100%;
+  }
+
+  .photo-tag-blue {
+    left: -.2rem;
+    top: 10%;
+  }
+
+  .photo-tag-pink {
+    right: -.2rem;
+    bottom: 5%;
+  }
+
+  /* Music: center the physical Red Flag stack, then align copy beneath it. */
+  .music-panel {
+    padding-inline: .25rem;
+  }
+
+  .music-panel .panel-kicker-row {
+    width: min(100%, 360px);
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .music-layout {
+    justify-items: center;
+  }
+
+  .music-layout .release-art-wrap {
+    width: min(68vw, 260px);
+    margin: 0 auto;
+  }
+
+  .music-layout .release-copy {
+    width: min(100%, 360px);
+    margin: .4rem auto 0;
+  }
+
+  .music-layout .release-copy h2 {
+    font-size: clamp(2.75rem, 13vw, 3.45rem);
+    line-height: .92;
+  }
+
+  .music-layout .release-copy p {
+    max-width: none;
+    margin-top: .75rem;
+  }
+
+  .release-actions {
+    width: 100%;
+    display: grid;
+    grid-template-columns: minmax(0,1fr) minmax(0,1fr);
+    gap: .65rem;
+    margin-top: 1.2rem;
+  }
+
+  .release-actions .button {
+    width: 100%;
+    min-width: 0;
+    padding: .7rem .55rem;
+    font-size: .67rem;
+    line-height: 1.2;
+    text-align: center;
+  }
+
+  /* Gigs: stack date/body/actions on phones instead of squeezing two columns. */
+  .live-panel {
+    width: calc(100% - .35rem);
+    margin-left: auto;
+    margin-right: auto;
+    padding: 2.45rem 1.35rem 2.7rem;
+  }
+
+  .live-heading-row h2 {
+    max-width: 72%;
+  }
+
+  .live-panel .shows {
+    margin-top: 1.15rem;
+  }
+
+  .live-panel .show-card {
+    grid-template-columns: 1fr !important;
+    gap: .48rem;
+    align-items: start;
+    padding: 1.15rem .65rem 1.25rem;
+  }
+
+  .live-panel .show-card.is-featured::before {
+    left: .05rem;
+    top: 16%;
+    bottom: 16%;
+  }
+
+  .live-panel .show-date {
+    width: fit-content;
+    min-width: 0;
+    margin: 0;
+    font-size: clamp(1.95rem, 10vw, 2.45rem);
+    line-height: .85;
+  }
+
+  .live-panel .show-place {
+    min-width: 0;
+  }
+
+  .live-panel .show-place strong {
+    font-size: 1.14rem;
+    line-height: 1.15;
+  }
+
+  .live-panel .show-place span {
+    font-size: .88rem;
+  }
+
+  .live-panel .show-description {
+    margin-top: .55rem;
+    font-size: .9rem;
+    line-height: 1.48;
+  }
+
+  .show-actions {
+    grid-column: 1;
+    align-items: flex-start;
+    justify-content: flex-start;
+    margin-top: .35rem;
+  }
+
+  .show-coming-soon {
+    min-height: 0;
+    max-width: 100%;
+    padding: .62rem .7rem;
+    text-align: left;
+    line-height: 1.3;
+  }
+
+  /* About: preserve each language pair as one unbreakable line. */
+  #about-title {
+    white-space: pre;
+    overflow-wrap: normal;
+    word-break: normal;
+    font-size: clamp(2rem, 10vw, 2.7rem);
+    line-height: .95;
+    letter-spacing: -.045em;
+  }
+
+  .story-about .about-lead {
+    margin-top: 1.1rem;
+    line-height: 1.58;
+  }
+
+  .story-about .about-pullquote {
+    display: block;
+    max-width: 100%;
+    margin-top: .65rem;
+    padding: .82rem .95rem;
+    font-size: .84rem;
+    line-height: 1.35;
+  }
+}
+
+@media (max-width: 390px) {
+  .release-actions {
+    grid-template-columns: 1fr;
+  }
+
+  #about-title {
+    font-size: clamp(1.9rem, 9.5vw, 2.3rem);
+  }
+
+  .live-panel {
+    padding-left: 1.15rem;
+    padding-right: 1.15rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .story-about .about-pullquote,
+  .story-about .about-pullquote:hover {
+    transform: none;
+  }
+}
