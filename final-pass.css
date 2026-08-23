@@ -15,43 +15,109 @@ a,
 button,
 [role="button"] { touch-action: manipulation; }
 
-/* Tiny poster details: enough character to reward looking closely, not extra clutter. */
-.panel-number {
-  display: inline-flex;
-  align-items: center;
-  gap: .42rem;
+/*
+  JS reveal compatibility.
+  The adapter refactor kept the observer but renamed its state classes; reconnect
+  those classes to the polished entrance motion. These still run once per page load.
+*/
+.music-panel.reveal-ready,
+.live-panel.reveal-ready,
+.story-about.reveal-ready,
+.story-photos.reveal-ready,
+.contact-footer-inner.reveal-ready {
+  opacity: 0;
+  transition:
+    opacity .64s var(--ease-soft) var(--reveal-delay, 0ms),
+    transform .72s var(--ease-soft) var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
 }
 
-.panel-number::before {
+.music-panel.reveal-ready,
+.story-about.reveal-ready {
+  transform: translate3d(-18px, 19px, 0);
+}
+
+.live-panel.reveal-ready,
+.story-photos.reveal-ready {
+  transform: translate3d(18px, 19px, 0);
+}
+
+.contact-footer-inner.reveal-ready {
+  transform: translate3d(0, 18px, 0);
+}
+
+.music-panel.reveal-ready.is-revealed,
+.live-panel.reveal-ready.is-revealed,
+.story-about.reveal-ready.is-revealed,
+.story-photos.reveal-ready.is-revealed,
+.contact-footer-inner.reveal-ready.is-revealed {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+/*
+  Small screen-print / paint speckle clusters.
+  Irregular dots replace the straight UI-ish accent lines from the previous pass.
+*/
+.music-panel::after,
+.live-heading-row::after,
+.story-about::after,
+.contact-footer-inner::after {
   content: "";
-  width: 20px;
-  height: 2px;
-  background: linear-gradient(90deg, var(--poster-blue), var(--poster-pink));
-  opacity: .62;
-  transform: rotate(-5deg);
+  position: absolute;
+  pointer-events: none;
+  width: 82px;
+  height: 58px;
+  background:
+    radial-gradient(circle at 8% 18%, rgba(239,49,199,.78) 0 1.2px, transparent 1.8px),
+    radial-gradient(circle at 24% 62%, rgba(39,140,255,.72) 0 2.2px, transparent 2.9px),
+    radial-gradient(circle at 43% 28%, rgba(255,255,255,.38) 0 .9px, transparent 1.5px),
+    radial-gradient(circle at 58% 77%, rgba(239,49,199,.52) 0 1.6px, transparent 2.3px),
+    radial-gradient(circle at 72% 42%, rgba(39,140,255,.56) 0 1px, transparent 1.7px),
+    radial-gradient(circle at 89% 13%, rgba(255,255,255,.25) 0 2.6px, transparent 3.3px),
+    radial-gradient(circle at 92% 70%, rgba(121,53,220,.7) 0 1.4px, transparent 2px);
+  opacity: .58;
 }
 
-.footer-label {
-  display: inline-flex;
-  align-items: center;
-  gap: .48rem;
+.music-panel::after {
+  z-index: 0;
+  left: -1.4rem;
+  bottom: -1.1rem;
+  transform: rotate(-12deg) scale(.88);
 }
 
-.footer-label::after {
-  content: "";
-  width: 24px;
-  height: 2px;
-  background: linear-gradient(90deg, var(--poster-pink), var(--poster-blue));
-  opacity: .68;
-  transform: rotate(-3deg);
+.live-heading-row::after {
+  z-index: 0;
+  right: 1rem;
+  top: -.75rem;
+  transform: rotate(11deg) scale(.95);
+  opacity: .42;
+  mix-blend-mode: screen;
 }
 
-.story-photo-heading .eyebrow::after {
-  content: " //";
-  color: var(--poster-blue);
-  font-family: var(--riot);
-  letter-spacing: -.04em;
-  opacity: .78;
+.story-about::after {
+  z-index: 0;
+  right: -.5rem;
+  bottom: 1.3rem;
+  transform: rotate(7deg) scale(.82);
+  opacity: .42;
+}
+
+.contact-footer-inner {
+  position: relative;
+}
+
+.contact-footer-inner::after {
+  z-index: 0;
+  right: .4rem;
+  bottom: 1.15rem;
+  transform: rotate(-8deg) scale(.9);
+  opacity: .38;
+}
+
+.contact-footer-inner > * {
+  position: relative;
+  z-index: 1;
 }
 
 .live-panel .show-card.is-featured .show-date {
@@ -138,6 +204,18 @@ button,
 
   .footer-link-row a,
   .footer-dm-link { padding-block: .62rem; }
+
+  .music-panel::after {
+    left: -.35rem;
+    bottom: -1.5rem;
+    transform: rotate(-10deg) scale(.72);
+  }
+
+  .live-heading-row::after {
+    right: -.2rem;
+    top: -.55rem;
+    transform: rotate(9deg) scale(.72);
+  }
 }
 
 @media (max-width: 620px) {
@@ -178,6 +256,12 @@ button,
   .footer-email:not(.footer-email-placeholder) {
     max-width: min(100%, 26ch);
   }
+
+  .contact-footer-inner::after {
+    right: -.75rem;
+    bottom: .35rem;
+    transform: rotate(-8deg) scale(.72);
+  }
 }
 
 /* Hover effects are a bonus on pointer devices, never a required interaction. */
@@ -202,9 +286,10 @@ button,
 }
 
 @media (forced-colors: active) {
-  .panel-number::before,
-  .footer-label::after,
-  .story-photo-heading .eyebrow::after { display: none; }
+  .music-panel::after,
+  .live-heading-row::after,
+  .story-about::after,
+  .contact-footer-inner::after { display: none; }
 
   .button,
   .dock-button,
@@ -214,4 +299,14 @@ button,
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
+
+  .music-panel.reveal-ready,
+  .live-panel.reveal-ready,
+  .story-about.reveal-ready,
+  .story-photos.reveal-ready,
+  .contact-footer-inner.reveal-ready {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
 }
