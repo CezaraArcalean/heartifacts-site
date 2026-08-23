@@ -32,7 +32,7 @@ window.HeartifactsSiteData = {
     {
       name: "Marsquake",
       date: "2026-09-23",
-      venue: "Marsquake · The Pub",
+      venue: "The Pub",
       city: "București · Universitate",
       eventUrl: "",
       ticketUrl: ""
