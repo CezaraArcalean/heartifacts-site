@@ -1,7 +1,7 @@
 window.HeartifactsSiteData = {
   social: {
     instagram: "https://www.instagram.com/heartifacts_band/",
-    spotify: "",
+    spotify: "https://open.spotify.com/artist/5xtYIZ2OYpNoui7Pd6i8H5?si=e338a4fb6f7c4e14",
     youtube: "https://www.youtube.com/@Heartifacts-band"
   },
 
@@ -19,16 +19,21 @@ window.HeartifactsSiteData = {
 
   featuredRelease: {
     title: "Red Flag",
-    artwork: "",
-    spotify: "",
+    artwork: "./assets/brand/Red_flag_sticker.webp",
+    alt: {
+      en: "Red Flag release sticker",
+      ro: "Stickerul piesei Red Flag"
+    },
+    spotify: "https://open.spotify.com/track/0ynmYXA2pBQTnFzMR8WO0Y?si=e9b2005f2f7b4055",
     youtube: "https://www.youtube.com/watch?v=FbAdPtLhO2g"
   },
 
   shows: [
     {
-      date: "",
+      name: "Marsquake",
+      date: "2026-09-23",
       venue: "The Pub",
-      city: "Bucharest",
+      city: "București · Universitate",
       eventUrl: "",
       ticketUrl: ""
     }
