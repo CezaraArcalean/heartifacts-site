@@ -22,7 +22,8 @@ window.HeartifactsContent.en = {
     watch: "Watch",
     spotify: "Listen on Spotify",
     youtube: "Watch on YouTube",
-    details: "Details"
+    tickets: "Tickets",
+    details: "More details"
   },
   placeholders: {
     heroPhoto: "Hero photo goes here",
@@ -32,12 +33,15 @@ window.HeartifactsContent.en = {
     kicker: "Our music",
     title: "Turn it up.",
     latest: "Latest release",
-    body: "A sharp, angry song about betrayal, crossed boundaries and finally seeing the warning signs clearly."
+    body: "A sharp, angry song about betrayal, crossed boundaries and finally seeing the warning signs clearly.",
+    releaseFallback: "New music from Heartifacts."
   },
   live: {
     kicker: "Gigs",
     title: "Upcoming gigs",
-    noShows: "Gig details will appear here as soon as they’re published. Follow us on Instagram for announcements."
+    dataFallback: "Gig details coming soon — follow us on Instagram for announcements.",
+    noShows: "More gigs are being cooked up — follow us on Instagram.",
+    ticketsSoon: "Tickets / details coming soon"
   },
   about: {
     kicker: "About",
