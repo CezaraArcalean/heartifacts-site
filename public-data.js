@@ -88,6 +88,7 @@
       return null;
     }
 
+    if (decoded.includes('\\') || decoded.includes('\0')) return null;
     const segments = decoded.split('/');
     if (segments.some((segment) => !segment || segment === '.' || segment === '..')) return null;
     if (segments[0] !== 'assets') return null;
