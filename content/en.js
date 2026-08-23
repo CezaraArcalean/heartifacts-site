@@ -33,7 +33,7 @@ window.HeartifactsContent.en = {
     kicker: "Our music",
     title: "Turn it up.",
     latest: "Latest release",
-    body: "A sharp, angry song about betrayal, crossed boundaries and finally seeing the warning signs clearly.",
+    body: "A song that hits as hard as realizing someone isn’t who you thought they were.",
     releaseFallback: "New music from Heartifacts."
   },
   live: {
@@ -45,9 +45,9 @@ window.HeartifactsContent.en = {
   },
   about: {
     kicker: "About",
-    title: "Too many feelings. Five instruments. One band.",
-    body: "Heartifacts is a five-piece alternative rock band from Bucharest, mixing pop-punk hooks, hard-rock weight and a little heavier bite. The songs run emotionally hot: frustration, overthinking, boundaries, heartbreak, catharsis — all the fun stuff. Offstage, the band is considerably less dramatic: friendly, goofy and very happy to make noise together. If you like your rock catchy, punchy and just a little overcharged, you’re probably in the right place.",
-    pullquote: "angry when it matters, goofy whenever possible"
+    title: "People: five. Band: one. Music: loud.",
+    body: "We’re Heartifacts, five people from Bucharest making pop-punk-ish music because apparently shouting your feelings in people’s faces wasn’t an option. We like catchy choruses, loud guitars, chaotic energy and the occasional heavier bit when the song asks for it. Along the way, some songs escaped our distracted minds, and it was too late to rein them in. Offstage, we’re considerably less dramatic: mostly jokes, rehearsal shenanigans and getting super excited whenever a song finally clicks.",
+    pullquote: "we take the music seriously. ourselves, less so."
   },
   photos: {
     kicker: "Evidence",
