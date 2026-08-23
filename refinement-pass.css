@@ -1,0 +1,158 @@
+/*
+  Heartifacts visual refinement pass.
+  Small corrections after the approved modern polish pass — no structural redesign.
+*/
+
+/* Use the optimized derivative for the large hero texture. */
+.poster-hero::before {
+  background-image:
+    linear-gradient(90deg, rgba(8,7,17,.92) 0 13%, rgba(8,7,17,.4) 48%, rgba(8,7,17,.87) 100%),
+    url("./assets/brand/Heartifacts_BG_Artwork.webp");
+}
+
+/* Give the hero just a little more editorial breathing room. */
+@media (min-width: 1100px) {
+  .poster-hero {
+    padding-top: clamp(6.6rem, 10.5vh, 8.4rem);
+    padding-bottom: clamp(3.7rem, 6vw, 5.3rem);
+  }
+
+  .poster-stage {
+    gap: clamp(2.25rem, 4vw, 4.8rem);
+  }
+
+  .poster-photo-wrap {
+    width: min(97%, 660px);
+  }
+
+  .poster-brand-block {
+    margin-left: clamp(-1.25rem, -1.05vw, -.3rem);
+    padding-top: 1.8rem;
+    padding-bottom: 1.8rem;
+  }
+}
+
+/*
+  The sticker already carries the riot typography. Let the release title support it
+  rather than competing with it.
+*/
+.music-layout .release-copy h2 {
+  font-family: var(--display);
+  font-size: clamp(2.45rem, 3.55vw, 3.9rem);
+  font-weight: 950;
+  line-height: .9;
+  letter-spacing: -.045em;
+  text-transform: none;
+  text-wrap: balance;
+}
+
+.release-copy:hover h2 {
+  text-shadow: 7px 6px 0 rgba(239,49,199,.055);
+}
+
+/* Push the decorative word far enough away that it reads as texture, not a heading. */
+.live-mark {
+  right: 2.25rem !important;
+  top: 2.85rem !important;
+  width: 39% !important;
+  font-size: clamp(3.8rem, 5.8vw, 6.6rem) !important;
+  color: rgba(8,7,17,.115) !important;
+  transform: rotate(10deg) !important;
+  transform-origin: center;
+  white-space: nowrap;
+  mix-blend-mode: multiply;
+}
+
+.live-heading-row h2 {
+  max-width: 350px;
+}
+
+/* Empty feed state: intentional publishing placeholder, not an error message. */
+.live-panel .show-empty {
+  position: relative;
+  max-width: 560px;
+  padding: 1.05rem 1.1rem 1.08rem;
+  margin-top: 1.45rem;
+  color: rgba(255,255,255,.88);
+  background: linear-gradient(90deg, rgba(8,7,17,.12), rgba(8,7,17,.035));
+  border-top: 1px solid rgba(8,7,17,.48);
+  border-bottom: 1px solid rgba(8,7,17,.48);
+  font-size: clamp(.98rem, 1.4vw, 1.18rem);
+  font-weight: 720;
+  line-height: 1.45;
+  text-wrap: pretty;
+}
+
+.live-panel .show-empty::before {
+  content: "↳";
+  display: inline-block;
+  margin-right: .55rem;
+  color: rgba(255,255,255,.58);
+  font-family: var(--riot);
+  transform: rotate(-5deg);
+}
+
+/* Booking email is primary; Instagram remains an obvious second route. */
+.footer-dm-link {
+  display: flex;
+  width: fit-content;
+  align-items: center;
+  gap: .45rem;
+  margin-top: .72rem;
+  color: #cfc9d4;
+  font-size: .79rem;
+  font-weight: 850;
+  text-decoration: none;
+  text-underline-offset: 4px;
+  transition: color .18s ease, transform .18s var(--ease-spring);
+}
+
+.footer-dm-link:hover,
+.footer-dm-link:focus-visible {
+  color: #fff;
+  transform: translateX(2px);
+}
+
+.footer-dm-link:focus-visible {
+  outline: 2px solid var(--poster-pink);
+  outline-offset: 4px;
+}
+
+.footer-dm-link span:last-child {
+  color: var(--poster-pink);
+}
+
+/* Keep the GIGS texture separated on smaller desktop/tablet layouts too. */
+@media (max-width: 1050px) and (min-width: 821px) {
+  .live-mark {
+    right: 1.25rem !important;
+    top: 3.3rem !important;
+    width: 36% !important;
+    font-size: clamp(3.4rem, 6vw, 5.4rem) !important;
+  }
+}
+
+@media (max-width: 820px) {
+  .music-layout .release-copy h2 {
+    font-size: clamp(2.35rem, 10vw, 3.25rem);
+  }
+
+  .live-mark {
+    right: .8rem !important;
+    top: 3.45rem !important;
+    width: 38% !important;
+    font-size: clamp(3rem, 14vw, 4.5rem) !important;
+    opacity: .8;
+  }
+
+  .footer-dm-link {
+    font-size: .84rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .footer-dm-link:hover,
+  .footer-dm-link:focus-visible {
+    transform: none;
+  }
+}
