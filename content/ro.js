@@ -45,7 +45,7 @@ window.HeartifactsContent.ro = {
   },
   about: {
     kicker: "Despre noi",
-    title: "Oameni: cinci. Trupă: una. Muzică: tare.",
+    title: "Oameni: cinci\nTrupă: una\nMuzică: tare",
     body: "Suntem Heartifacts, cinci oameni din București care fac muzică pop-punk-ish pentru că, aparent, să le urlăm oamenilor în față tot ce simțim nu era o opțiune. Ne plac refrenele catchy, chitările date tare, energia haotică și câte un moment mai heavy când piesa îl cere. Pe parcurs, niște piese au reușit să scape din mințile noastre distrate și, până să ne prindem, deja n-aveam ce să le mai facem. Când nu suntem pe scenă, suntem ceva mai puțin dramatici: multe glume, distracție la repetiții și entuziasm care dă pe dinafară de fiecare dată când ne iese bine o piesă.",
     pullquote: "muzica o luăm în serios. pe noi, mai puțin."
   },
