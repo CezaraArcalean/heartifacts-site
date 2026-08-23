@@ -1,0 +1,217 @@
+/*
+  Heartifacts final refinement + QA layer.
+  Small visual details and responsive/accessibility safeguards only.
+  The page structure and core compositions stay intentionally unchanged.
+*/
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body { min-width: 320px; }
+
+a,
+button,
+[role="button"] { touch-action: manipulation; }
+
+/* Tiny poster details: enough character to reward looking closely, not extra clutter. */
+.panel-number {
+  display: inline-flex;
+  align-items: center;
+  gap: .42rem;
+}
+
+.panel-number::before {
+  content: "";
+  width: 20px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--poster-blue), var(--poster-pink));
+  opacity: .62;
+  transform: rotate(-5deg);
+}
+
+.footer-label {
+  display: inline-flex;
+  align-items: center;
+  gap: .48rem;
+}
+
+.footer-label::after {
+  content: "";
+  width: 24px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--poster-pink), var(--poster-blue));
+  opacity: .68;
+  transform: rotate(-3deg);
+}
+
+.story-photo-heading .eyebrow::after {
+  content: " //";
+  color: var(--poster-blue);
+  font-family: var(--riot);
+  letter-spacing: -.04em;
+  opacity: .78;
+}
+
+.live-panel .show-card.is-featured .show-date {
+  text-shadow: 3px 3px 0 rgba(8,7,17,.12);
+}
+
+/* Dynamic actions need the same tactile/focus quality as the static buttons. */
+.show-actions .button,
+.show-detail-link,
+.footer-dm-link,
+.footer-link-row a {
+  min-height: 44px;
+}
+
+.show-detail-link {
+  display: inline-flex;
+  align-items: center;
+}
+
+.show-coming-soon {
+  min-height: 40px;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Prevent the header controls from being visually tiny touch targets. */
+.lang-button {
+  min-width: 34px;
+  min-height: 34px;
+}
+
+/* Keep keyboard focus visible above the decorative layers. */
+.gallery-item:focus-visible,
+.latest-jump:focus-visible,
+.show-detail-link:focus-visible,
+.footer-link-row a:focus-visible {
+  position: relative;
+  z-index: 20;
+}
+
+/* Mobile/tablet QA -------------------------------------------------------- */
+@media (max-width: 820px) {
+  .site-header {
+    min-height: 72px;
+    padding-left: max(var(--site-pad), env(safe-area-inset-left));
+    padding-right: max(var(--site-pad), env(safe-area-inset-right));
+    padding-top: max(.65rem, env(safe-area-inset-top));
+  }
+
+  .mobile-menu {
+    inset: 72px 0 auto;
+    max-height: calc(100dvh - 72px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding-left: max(var(--site-pad), env(safe-area-inset-left));
+    padding-right: max(var(--site-pad), env(safe-area-inset-right));
+    padding-bottom: max(2rem, env(safe-area-inset-bottom));
+  }
+
+  .menu-button {
+    width: 44px;
+    height: 44px;
+  }
+
+  .lang-button {
+    min-width: 44px;
+    min-height: 44px;
+    padding: 0;
+  }
+
+  .language-switcher { gap: .05rem; }
+
+  .poster-hero {
+    padding-left: max(var(--site-pad), env(safe-area-inset-left));
+    padding-right: max(var(--site-pad), env(safe-area-inset-right));
+  }
+
+  .dock-button { min-width: 58px; }
+
+  .live-panel .show-description {
+    max-width: 60ch;
+    font-size: .9rem;
+  }
+
+  .footer-link-row a,
+  .footer-dm-link { padding-block: .62rem; }
+}
+
+@media (max-width: 620px) {
+  .poster-hero {
+    padding-left: max(.9rem, env(safe-area-inset-left));
+    padding-right: max(.9rem, env(safe-area-inset-right));
+  }
+
+  .live-panel {
+    padding-left: 1.15rem;
+    padding-right: 1.15rem;
+  }
+
+  .live-heading-row h2 {
+    margin-left: 0 !important;
+    max-width: 78%;
+    font-size: clamp(2.2rem, 11vw, 2.75rem);
+  }
+
+  .live-mark {
+    right: .4rem !important;
+    top: -.35rem !important;
+    width: 42% !important;
+  }
+
+  .live-panel .show-card {
+    padding-left: .15rem;
+    padding-right: .15rem;
+  }
+
+  .show-actions { gap: .45rem .65rem; }
+
+  .show-coming-soon {
+    font-size: .62rem;
+    letter-spacing: .035em;
+  }
+
+  .footer-email:not(.footer-email-placeholder) {
+    max-width: min(100%, 26ch);
+  }
+}
+
+/* Hover effects are a bonus on pointer devices, never a required interaction. */
+@media (hover: none) {
+  .dock-button span { display: none; }
+  .release-art-wrap,
+  .poster-photo-frame,
+  .poster-logo-heading,
+  .story-photos .gallery-item { will-change: auto; }
+}
+
+/* Respect stronger OS contrast preferences without changing the identity. */
+@media (prefers-contrast: more) {
+  .poster-positioning,
+  .live-panel .show-description,
+  .show-location,
+  .footer-contact-lede,
+  .footer-dm-link { color: #fff; }
+
+  .show-coming-soon,
+  .footer-link-row a { border-color: rgba(255,255,255,.58); }
+}
+
+@media (forced-colors: active) {
+  .panel-number::before,
+  .footer-label::after,
+  .story-photo-heading .eyebrow::after { display: none; }
+
+  .button,
+  .dock-button,
+  .footer-link-row a,
+  .show-coming-soon { forced-color-adjust: auto; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
