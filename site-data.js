@@ -6,7 +6,7 @@ window.HeartifactsSiteData = {
   },
 
   contact: {
-    email: ""
+    email: "heartifactsband@gmail.com"
   },
 
   hero: {
@@ -28,16 +28,9 @@ window.HeartifactsSiteData = {
     youtube: "https://www.youtube.com/watch?v=FbAdPtLhO2g"
   },
 
-  shows: [
-    {
-      name: "Marsquake",
-      date: "2026-09-23",
-      venue: "The Pub",
-      city: "București · Universitate",
-      eventUrl: "",
-      ticketUrl: ""
-    }
-  ],
+  // Public gig data is generated separately so the Band Manager bridge can publish
+  // updates without touching the website's main configuration.
+  shows: Array.isArray(window.HeartifactsPublishedGigs) ? window.HeartifactsPublishedGigs : [],
 
   gallery: [
     {
@@ -51,12 +44,12 @@ window.HeartifactsSiteData = {
       caption: { en: "", ro: "" }
     },
     {
-      src: "./assets/photos/IMG_4706_medium.webp",
+      src: "./assets/photos/IMG_4153_medium.webp",
       alt: { en: "Heartifacts band photo", ro: "Fotografie cu trupa Heartifacts" },
       caption: { en: "", ro: "" }
     },
     {
-      src: "./assets/photos/IMG_4153_medium.webp",
+      src: "./assets/photos/IMG_4706_medium.webp",
       alt: { en: "Heartifacts band photo", ro: "Fotografie cu trupa Heartifacts" },
       caption: { en: "", ro: "" }
     }
