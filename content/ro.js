@@ -4,7 +4,7 @@ window.HeartifactsContent.ro = {
     title: "Heartifacts — Alternative Rock din București",
     description: "Heartifacts este o trupă de alternative rock din București, cu hook-uri pop-punk, greutate hard-rock și piese trăite puțin prea intens."
   },
-  nav: { music: "Muzică", live: "Live", about: "Despre", photos: "Poze", menu: "Meniu" },
+  nav: { music: "Muzică", live: "Gigs", about: "Despre", photos: "Poze", contact: "Contact", menu: "Meniu" },
   hero: {
     eyebrow: "Alternative rock · București",
     tagline: "pentru oamenii care simt totul puțin prea intens",
@@ -35,7 +35,7 @@ window.HeartifactsContent.ro = {
     body: "O piesă tăioasă și furioasă despre trădare, limite încălcate și momentul în care vezi clar toate semnalele de alarmă."
   },
   live: {
-    kicker: "Live",
+    kicker: "Gigs",
     title: "Concerte viitoare",
     noShows: "Se gătesc concerte noi — urmărește-ne pe Instagram."
   },
@@ -58,6 +58,8 @@ window.HeartifactsContent.ro = {
   footer: {
     location: "Alternative rock · București, România",
     booking: "Booking / Presă",
-    contactSoon: "Datele de booking apar în curând."
+    contactLead: "Vrei să ne chemi la un concert, să scrii despre noi sau să ne contactezi?",
+    contactSoon: "Datele de booking apar în curând.",
+    findUs: "Ne găsești aici"
   }
 };
