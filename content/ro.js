@@ -37,7 +37,7 @@ window.HeartifactsContent.ro = {
   live: {
     kicker: "Gigs",
     title: "Concerte viitoare",
-    noShows: "Se gătesc concerte noi — urmărește-ne pe Instagram."
+    noShows: "Detaliile concertelor vor apărea aici imediat ce sunt publicate. Urmărește-ne pe Instagram pentru anunțuri."
   },
   about: {
     kicker: "Despre noi",
@@ -58,8 +58,9 @@ window.HeartifactsContent.ro = {
   footer: {
     location: "Alternative rock · București, România",
     booking: "Booking / Presă",
-    contactLead: "Vrei să ne chemi la un concert, să scrii despre noi sau să ne contactezi?",
+    contactLead: "Booking, presă sau pur și simplu vrei să ne scrii? Dă-ne un email sau un DM pe Instagram.",
     contactSoon: "Datele de booking apar în curând.",
+    instagramDM: "Scrie-ne pe Instagram",
     findUs: "Ne găsești aici"
   }
 };
