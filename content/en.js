@@ -29,15 +29,15 @@ window.HeartifactsContent.en = {
     releaseArt: "Artwork goes here"
   },
   music: {
-    kicker: "Featured release",
+    kicker: "Our music",
     title: "Turn it up.",
     latest: "Latest release",
     body: "A sharp, angry song about betrayal, crossed boundaries and finally seeing the warning signs clearly."
   },
   live: {
-    kicker: "Next up",
-    title: "Come scream with us.",
-    noShows: "New shows are being cooked up — follow us on Instagram."
+    kicker: "Live",
+    title: "Upcoming shows",
+    noShows: "More shows are being cooked up — follow us on Instagram."
   },
   about: {
     kicker: "About",
@@ -58,6 +58,6 @@ window.HeartifactsContent.en = {
   footer: {
     location: "Alternative rock · Bucharest, Romania",
     booking: "Booking / Press",
-    contactSoon: "Contact details coming soon."
+    contactSoon: "Booking details coming soon."
   }
 };
