@@ -16,8 +16,6 @@
   <title>Heartifacts — Alternative Rock from Bucharest</title>
   <link rel="icon" href="./favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="./styles.css">
-  <link rel="stylesheet" href="./brand-pass.css">
-  <link rel="stylesheet" href="./logo-plate.css">
   <link rel="stylesheet" href="./layout-pass.css">
   <script src="./content/en.js" defer></script>
   <script src="./content/ro.js" defer></script>
@@ -28,8 +26,8 @@
   <a class="skip-link" href="#main">Skip to content</a>
 
   <header class="site-header" data-header>
-    <a class="brand brand-logo-link logo-plate logo-plate-header" href="#top" aria-label="Heartifacts home">
-      <img class="brand-logo brand-logo-header" src="./assets/brand/Heartifacts_Logo.svg" alt="Heartifacts">
+    <a class="brand brand-logo-link" href="#top" aria-label="Heartifacts home">
+      <img class="brand-logo brand-logo-header" src="./assets/brand/Heartifacts_Artwork_white.svg" alt="Heartifacts">
     </a>
 
     <nav class="desktop-nav" aria-label="Primary navigation">
@@ -58,80 +56,65 @@
     <a href="#about" data-nav-link data-i18n="nav.about">About</a>
     <a href="#photos" data-nav-link data-i18n="nav.photos">Photos</a>
     <div class="mobile-menu-links">
-      <a data-social="instagram" href="#">Instagram</a>
+      <a data-social="instagram" href="#" target="_blank" rel="noopener noreferrer">Instagram</a>
       <a data-social="spotify" data-keep-empty="true">Spotify</a>
-      <a data-social="youtube" href="#">YouTube</a>
+      <a data-social="youtube" href="#" target="_blank" rel="noopener noreferrer">YouTube</a>
     </div>
   </div>
 
   <main id="main">
-    <section class="hero compact-hero" id="top" aria-labelledby="hero-title">
-      <div class="hero-noise" aria-hidden="true"></div>
-      <div class="hero-copy">
-        <p class="eyebrow" data-i18n="hero.eyebrow">Alternative rock · Bucharest</p>
-        <h1 id="hero-title" class="hero-title hero-logo-heading logo-plate logo-plate-hero">
-          <img class="brand-logo brand-logo-hero" src="./assets/brand/Heartifacts_Logo.svg" alt="Heartifacts">
-        </h1>
-        <p class="hero-tagline" data-i18n="hero.tagline">for people who feel everything a little too intensely</p>
-        <p class="hero-positioning" data-i18n="hero.positioning">Five-piece alternative rock with pop-punk hooks, hard-rock weight and emotionally overcharged songs.</p>
-
-        <div class="quick-link-deck" aria-label="Heartifacts links">
-          <a class="quick-link quick-instagram" data-social="instagram" href="#" target="_blank" rel="noopener noreferrer">
-            <span class="quick-icon paint-mark" aria-hidden="true">
-              <svg viewBox="0 0 48 48"><rect x="9" y="9" width="30" height="30" rx="9"></rect><circle cx="24" cy="24" r="7"></circle><circle class="icon-fill" cx="33.5" cy="14.7" r="2.2"></circle></svg>
-            </span>
-            <span class="quick-copy"><small data-i18n="quick.follow">Follow</small><strong>Instagram</strong></span>
-            <span class="quick-arrow" aria-hidden="true">↗</span>
-          </a>
-
-          <a class="quick-link quick-spotify" data-social="spotify" data-keep-empty="true" target="_blank" rel="noopener noreferrer">
-            <span class="quick-icon paint-mark" aria-hidden="true">
-              <svg viewBox="0 0 48 48"><path d="M11 19c9-3 20-2.6 28 1.2"></path><path d="M13 26c7.8-2.2 17-1.7 23.8 1.2"></path><path d="M16 32.5c6-1.4 12.7-1 18 1.2"></path></svg>
-            </span>
-            <span class="quick-copy"><small data-i18n="quick.listen">Listen</small><strong>Spotify</strong><em data-link-status></em></span>
-            <span class="quick-arrow" aria-hidden="true">↗</span>
-          </a>
-
-          <a class="quick-link quick-youtube" data-social="youtube" href="#" target="_blank" rel="noopener noreferrer">
-            <span class="quick-icon paint-mark" aria-hidden="true">
-              <svg viewBox="0 0 48 48"><path d="M9.5 15.5c6-2 23-2 29 0 2.5 5.5 2.5 11.5 0 17-6 2-23 2-29 0-2.3-5.3-2.3-11.7 0-17Z"></path><path class="icon-fill" d="m21 19 10 5-10 5Z"></path></svg>
-            </span>
-            <span class="quick-copy"><small data-i18n="quick.watch">Watch</small><strong>YouTube</strong></span>
-            <span class="quick-arrow" aria-hidden="true">↗</span>
-          </a>
-
-          <a class="quick-link quick-contact" data-contact-quick data-keep-empty="true">
-            <span class="quick-icon paint-mark" aria-hidden="true">
-              <svg viewBox="0 0 48 48"><path d="M9 14h30v21H9Z"></path><path d="m10 16 14 11 14-11"></path></svg>
-            </span>
-            <span class="quick-copy"><small data-i18n="quick.contact">Contact</small><strong data-i18n="footer.booking">Booking / Press</strong><em data-link-status></em></span>
-            <span class="quick-arrow" aria-hidden="true">↗</span>
-          </a>
-        </div>
-      </div>
-
-      <div class="hero-art" aria-label="Heartifacts featured photo">
-        <div class="hero-photo-frame">
-          <div class="media-placeholder media-placeholder-hero" data-hero-media>
-            <span class="placeholder-logo-wrap logo-plate logo-plate-placeholder">
-              <img class="brand-logo brand-logo-placeholder" src="./assets/brand/Heartifacts_Logo.svg" alt="">
-            </span>
-            <small data-i18n="placeholders.heroPhoto">Hero photo goes here</small>
+    <section class="poster-hero" id="top" aria-labelledby="hero-title">
+      <div class="poster-noise" aria-hidden="true"></div>
+      <div class="poster-stage">
+        <div class="poster-photo-wrap">
+          <div class="poster-photo-frame">
+            <div class="media-placeholder poster-photo" data-hero-media>
+              <small data-i18n="placeholders.heroPhoto">Hero photo goes here</small>
+            </div>
           </div>
+          <span class="photo-tag photo-tag-blue" aria-hidden="true">BUCHAREST</span>
+          <span class="photo-tag photo-tag-pink" aria-hidden="true">LOUD FEELINGS</span>
         </div>
-        <div class="sticker sticker-blue" aria-hidden="true">BUCHAREST</div>
-        <div class="sticker sticker-pink" aria-hidden="true">LOUD FEELINGS</div>
+
+        <div class="poster-brand-block">
+          <p class="eyebrow" data-i18n="hero.eyebrow">Alternative rock · Bucharest</p>
+          <h1 id="hero-title" class="poster-logo-heading">
+            <img class="poster-logo" src="./assets/brand/Heartifacts_Artwork_white.svg" alt="Heartifacts">
+          </h1>
+          <p class="poster-tagline" data-i18n="hero.tagline">for people who feel everything a little too intensely</p>
+          <p class="poster-positioning" data-i18n="hero.positioning">Five-piece alternative rock with pop-punk hooks, hard-rock weight and emotionally overcharged songs.</p>
+          <a class="latest-jump" href="#music">
+            <span data-i18n="music.latest">Latest release</span>
+            <strong>Red Flag</strong>
+            <span aria-hidden="true">↘</span>
+          </a>
+        </div>
       </div>
+
+      <nav class="social-dock" aria-label="Heartifacts social links">
+        <a class="dock-button dock-instagram" data-social="instagram" href="#" target="_blank" rel="noopener noreferrer" aria-label="Heartifacts on Instagram">
+          <svg viewBox="0 0 48 48" aria-hidden="true"><rect x="10" y="10" width="28" height="28" rx="8"></rect><circle cx="24" cy="24" r="7"></circle><circle class="icon-fill" cx="33" cy="15" r="2"></circle></svg>
+          <span>Instagram</span>
+        </a>
+        <a class="dock-button dock-spotify" data-social="spotify" data-keep-empty="true" aria-label="Heartifacts on Spotify">
+          <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M10 19c9-3 20-2.6 28 1.2"></path><path d="M13 26c7.8-2.2 17-1.7 23.8 1.2"></path><path d="M16 32.5c6-1.4 12.7-1 18 1.2"></path></svg>
+          <span>Spotify</span>
+        </a>
+        <a class="dock-button dock-youtube" data-social="youtube" href="#" target="_blank" rel="noopener noreferrer" aria-label="Heartifacts on YouTube">
+          <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M9.5 15.5c6-2 23-2 29 0 2.5 5.5 2.5 11.5 0 17-6 2-23 2-29 0-2.3-5.3-2.3-11.7 0-17Z"></path><path class="icon-fill" d="m21 19 10 5-10 5Z"></path></svg>
+          <span>YouTube</span>
+        </a>
+      </nav>
     </section>
 
-    <section class="section now-section" aria-label="Music and live">
-      <div class="now-grid">
-        <article class="now-card release-panel" id="music" aria-labelledby="music-title">
-          <div class="now-card-heading">
-            <p class="eyebrow" data-i18n="music.kicker">Featured release</p>
-            <h2 id="music-title">RED FLAG</h2>
+    <section class="now-section" aria-label="Music and live shows">
+      <div class="now-shell">
+        <article class="music-panel" id="music" aria-labelledby="music-title">
+          <div class="panel-kicker-row">
+            <p class="eyebrow" data-i18n="music.kicker">Our music</p>
+            <span class="panel-number" aria-hidden="true">01</span>
           </div>
-          <div class="release-compact">
+          <div class="music-layout">
             <div class="release-art-wrap">
               <div class="release-art media-placeholder" data-release-art>
                 <span>RED FLAG</span>
@@ -139,8 +122,7 @@
               </div>
             </div>
             <div class="release-copy">
-              <p class="release-label" data-i18n="music.latest">Latest release</p>
-              <h3 data-release-title>Red Flag</h3>
+              <h2 id="music-title" data-release-title>Red Flag</h2>
               <p data-i18n="music.body">A sharp, angry song about betrayal, crossed boundaries and finally seeing the warning signs clearly.</p>
               <div class="release-actions">
                 <a class="button button-primary" data-release-spotify href="#" target="_blank" rel="noopener noreferrer" data-i18n="actions.spotify">Listen on Spotify</a>
@@ -150,20 +132,22 @@
           </div>
         </article>
 
-        <article class="now-card live-panel" id="live" aria-labelledby="live-title">
-          <div class="live-scribble" aria-hidden="true">LIVE!</div>
-          <div class="now-card-heading">
-            <p class="eyebrow" data-i18n="live.kicker">Next up</p>
-            <h2 id="live-title" data-i18n="live.title">Come scream with us.</h2>
+        <article class="live-panel" id="live" aria-labelledby="live-title">
+          <div class="panel-kicker-row">
+            <p class="eyebrow" data-i18n="live.kicker">Live</p>
+            <span class="panel-number" aria-hidden="true">02</span>
+          </div>
+          <div class="live-heading-row">
+            <div class="live-mark" aria-hidden="true">LIVE!</div>
+            <h2 id="live-title" data-i18n="live.title">Upcoming shows</h2>
           </div>
           <div class="shows" data-shows></div>
         </article>
       </div>
     </section>
 
-    <section class="section story-section" aria-label="About Heartifacts and photos">
+    <section class="story-section" aria-label="About Heartifacts and photos">
       <article class="story-about" id="about" aria-labelledby="about-title">
-        <div class="about-number" aria-hidden="true">05</div>
         <p class="eyebrow" data-i18n="about.kicker">About</p>
         <h2 id="about-title" data-i18n="about.title">Too many feelings. Five instruments. One band.</h2>
         <p class="about-lead" data-i18n="about.body"></p>
@@ -180,20 +164,22 @@
     </section>
   </main>
 
-  <footer class="site-footer compact-footer">
+  <footer class="site-footer quiet-footer">
     <div class="footer-brand-wrap">
-      <span class="logo-plate logo-plate-footer">
-        <img class="brand-logo brand-logo-footer" src="./assets/brand/Heartifacts_Logo.svg" alt="Heartifacts">
-      </span>
+      <img class="brand-logo brand-logo-footer" src="./assets/brand/Heartifacts_Artwork_white.svg" alt="Heartifacts">
       <p data-i18n="footer.location">Alternative rock · Bucharest, Romania</p>
+    </div>
+
+    <div class="footer-contact-block">
+      <span class="footer-label" data-i18n="footer.booking">Booking / Press</span>
+      <a data-contact-email href="#" hidden></a>
+      <span data-contact-placeholder data-i18n="footer.contactSoon">Contact details coming soon.</span>
     </div>
 
     <nav class="footer-links" aria-label="Heartifacts links">
       <a data-social="instagram" href="#" target="_blank" rel="noopener noreferrer">Instagram</a>
-      <a data-social="spotify" data-keep-empty="true" target="_blank" rel="noopener noreferrer">Spotify</a>
+      <a data-social="spotify" data-keep-empty="true">Spotify</a>
       <a data-social="youtube" href="#" target="_blank" rel="noopener noreferrer">YouTube</a>
-      <a data-contact-email href="#" hidden></a>
-      <span data-contact-placeholder data-i18n="footer.contactSoon">Contact details coming soon.</span>
     </nav>
 
     <p class="footer-note">© <span data-year></span> Heartifacts.</p>
