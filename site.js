@@ -5,6 +5,7 @@
   const dictionaries = window.HeartifactsContent || {};
   const supportedLanguages = ['ro', 'en'];
   const languageStorageKey = 'heartifacts-language';
+  const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
 
   const getNestedValue = (object, path) => path.split('.').reduce((value, key) => value && value[key], object);
 
@@ -38,6 +39,21 @@
     });
   };
 
+  const updateMediaAlts = (language) => {
+    const heroImage = document.querySelector('[data-hero-media] img');
+    if (heroImage && data.hero && data.hero.alt) {
+      heroImage.alt = data.hero.alt[language] || data.hero.alt.en || 'Heartifacts';
+    }
+
+    const releaseImage = document.querySelector('[data-release-art] img');
+    if (releaseImage && data.featuredRelease) {
+      const releaseAlt = data.featuredRelease.alt;
+      releaseImage.alt = releaseAlt && (releaseAlt[language] || releaseAlt.en)
+        ? (releaseAlt[language] || releaseAlt.en)
+        : `${data.featuredRelease.title || 'Heartifacts'} artwork`;
+    }
+  };
+
   const applyLanguage = (language, persist = false) => {
     const dictionary = dictionaries[language] || dictionaries.en;
     if (!dictionary) return;
@@ -68,6 +84,7 @@
     renderShows(language);
     renderGallery(language);
     updateQuickStatuses(language);
+    updateMediaAlts(language);
 
     if (persist) {
       try { window.localStorage.setItem(languageStorageKey, language); } catch (_) {}
@@ -97,6 +114,11 @@
     element.classList.remove('is-disabled');
     element.removeAttribute('aria-disabled');
     element.href = url;
+
+    if (/^https?:\/\//i.test(url)) {
+      element.target = '_blank';
+      element.rel = 'noopener noreferrer';
+    }
   };
 
   const hydrateLinks = () => {
@@ -135,11 +157,12 @@
   };
 
   const hydrateMedia = () => {
+    const language = document.documentElement.lang || 'en';
     const hero = document.querySelector('[data-hero-media]');
     if (hero && data.hero && data.hero.image) {
       const image = document.createElement('img');
       image.src = data.hero.image;
-      image.alt = (data.hero.alt && (data.hero.alt[document.documentElement.lang] || data.hero.alt.en)) || 'Heartifacts';
+      image.alt = (data.hero.alt && (data.hero.alt[language] || data.hero.alt.en)) || 'Heartifacts';
       image.fetchPriority = 'high';
       image.decoding = 'async';
       hero.append(image);
@@ -149,8 +172,11 @@
     const releaseArt = document.querySelector('[data-release-art]');
     if (releaseArt && data.featuredRelease && data.featuredRelease.artwork) {
       const image = document.createElement('img');
+      const releaseAlt = data.featuredRelease.alt;
       image.src = data.featuredRelease.artwork;
-      image.alt = `${data.featuredRelease.title || 'Heartifacts'} artwork`;
+      image.alt = releaseAlt && (releaseAlt[language] || releaseAlt.en)
+        ? (releaseAlt[language] || releaseAlt.en)
+        : `${data.featuredRelease.title || 'Heartifacts'} artwork`;
       image.loading = 'lazy';
       image.decoding = 'async';
       releaseArt.append(image);
@@ -189,11 +215,19 @@
 
         const place = document.createElement('div');
         place.className = 'show-place';
-        const venue = document.createElement('strong');
-        venue.textContent = show.venue;
-        const city = document.createElement('span');
-        city.textContent = show.city || '';
-        place.append(venue, city);
+
+        const title = document.createElement('strong');
+        title.textContent = show.name || show.venue;
+        place.append(title);
+
+        const detailParts = [];
+        if (show.name && show.venue) detailParts.push(show.venue);
+        if (show.city) detailParts.push(show.city);
+        if (detailParts.length) {
+          const details = document.createElement('span');
+          details.textContent = detailParts.join(' · ');
+          place.append(details);
+        }
 
         row.append(date, place);
 
@@ -342,6 +376,65 @@
     });
   };
 
+  const setupHeroMotion = () => {
+    const hero = document.querySelector('.poster-hero');
+    if (!hero || reducedMotionQuery.matches || !window.matchMedia('(pointer: fine)').matches) return;
+
+    let frame = 0;
+    let pendingEvent = null;
+
+    const paint = () => {
+      frame = 0;
+      if (!pendingEvent) return;
+      const rect = hero.getBoundingClientRect();
+      const x = Math.max(0, Math.min(rect.width, pendingEvent.clientX - rect.left));
+      const y = Math.max(0, Math.min(rect.height, pendingEvent.clientY - rect.top));
+      const nx = rect.width ? (x / rect.width - .5) * 2 : 0;
+      const ny = rect.height ? (y / rect.height - .5) * 2 : 0;
+
+      hero.style.setProperty('--hero-light-x', `${x}px`);
+      hero.style.setProperty('--hero-light-y', `${y}px`);
+      hero.style.setProperty('--hero-nx', nx.toFixed(3));
+      hero.style.setProperty('--hero-ny', ny.toFixed(3));
+      hero.classList.add('is-pointer-active');
+    };
+
+    hero.addEventListener('pointermove', (event) => {
+      pendingEvent = event;
+      if (!frame) frame = window.requestAnimationFrame(paint);
+    }, { passive: true });
+
+    hero.addEventListener('pointerleave', () => {
+      pendingEvent = null;
+      hero.classList.remove('is-pointer-active');
+      hero.style.setProperty('--hero-nx', '0');
+      hero.style.setProperty('--hero-ny', '0');
+    }, { passive: true });
+  };
+
+  const setupRevealMotion = () => {
+    if (reducedMotionQuery.matches || !('IntersectionObserver' in window)) return;
+
+    const targets = Array.from(document.querySelectorAll('.music-panel, .live-panel, .story-about, .story-photos, .contact-footer-inner'));
+    if (!targets.length) return;
+
+    document.documentElement.classList.add('motion-ready');
+    targets.forEach((target, index) => {
+      target.dataset.reveal = '';
+      target.style.setProperty('--reveal-delay', `${Math.min(index, 4) * 45}ms`);
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('is-visible');
+        observer.unobserve(entry.target);
+      });
+    }, { rootMargin: '0px 0px -10% 0px', threshold: .08 });
+
+    targets.forEach((target) => observer.observe(target));
+  };
+
   const initialLanguage = resolveInitialLanguage();
   const year = document.querySelector('[data-year]');
   if (year) year.textContent = new Date().getFullYear();
@@ -351,5 +444,7 @@
   setupLightbox();
   setupSectionNavigation();
   setupLanguageButtons();
+  setupHeroMotion();
+  setupRevealMotion();
   applyLanguage(initialLanguage);
 })();
