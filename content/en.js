@@ -37,7 +37,7 @@ window.HeartifactsContent.en = {
   live: {
     kicker: "Gigs",
     title: "Upcoming gigs",
-    noShows: "More gigs are being cooked up — follow us on Instagram."
+    noShows: "Gig details will appear here as soon as they’re published. Follow us on Instagram for announcements."
   },
   about: {
     kicker: "About",
@@ -58,8 +58,9 @@ window.HeartifactsContent.en = {
   footer: {
     location: "Alternative rock · Bucharest, Romania",
     booking: "Booking / Press",
-    contactLead: "Want to book us, write about us, or get in touch?",
+    contactLead: "Booking, press, or just want to say hi? Email us or DM us on Instagram.",
     contactSoon: "Booking details coming soon.",
+    instagramDM: "DM us on Instagram",
     findUs: "Find us"
   }
 };
