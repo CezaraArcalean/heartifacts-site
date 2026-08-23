@@ -1,0 +1,22 @@
+/* Non-destructive crop for the official white SVG's transparent square canvas. */
+.logo-crop {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  aspect-ratio: 865 / 270;
+}
+.logo-crop > img {
+  position: absolute;
+  width: 118.4%;
+  max-width: none;
+  height: auto;
+  left: -9%;
+  top: -141%;
+}
+.logo-crop-header { width: 100%; }
+.logo-crop-hero { width: 100%; }
+.logo-crop-footer { width: min(240px, 52vw); }
+
+@media (prefers-reduced-motion: reduce) {
+  .logo-crop > img { transform: none; }
+}
