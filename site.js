@@ -2,12 +2,17 @@
   'use strict';
 
   const data = window.HeartifactsSiteData || {};
+  const publicDataApi = window.HeartifactsPublicData || null;
   const dictionaries = window.HeartifactsContent || {};
   const supportedLanguages = ['ro', 'en'];
   const languageStorageKey = 'heartifacts-language';
   const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
 
+  let activeLanguage = 'en';
+  let publicDataState = Object.freeze({ status: 'idle', data: null });
+
   const getNestedValue = (object, path) => path.split('.').reduce((value, key) => value && value[key], object);
+  const getDictionary = (language) => dictionaries[language] || dictionaries.en || {};
 
   const resolveInitialLanguage = () => {
     const queryLanguage = new URLSearchParams(window.location.search).get('lang');
@@ -17,7 +22,7 @@
       const storedLanguage = window.localStorage.getItem(languageStorageKey);
       if (supportedLanguages.includes(storedLanguage)) return storedLanguage;
     } catch (_) {
-      // Local storage may be unavailable; language selection still works for this visit.
+      // Local storage is optional; language selection still works for this visit.
     }
 
     return navigator.language && navigator.language.toLowerCase().startsWith('ro') ? 'ro' : 'en';
@@ -29,81 +34,18 @@
     window.history.replaceState({}, '', url);
   };
 
-  const updateQuickStatuses = (language) => {
-    const dictionary = dictionaries[language] || dictionaries.en;
-    const soonText = dictionary && dictionary.quick ? dictionary.quick.soon : 'Link soon';
-
-    document.querySelectorAll('.quick-link [data-link-status]').forEach((status) => {
-      const card = status.closest('.quick-link');
-      status.textContent = card && card.classList.contains('is-disabled') ? soonText : '';
-    });
-  };
-
-  const updateMediaAlts = (language) => {
-    const heroImage = document.querySelector('[data-hero-media] img');
-    if (heroImage && data.hero && data.hero.alt) {
-      heroImage.alt = data.hero.alt[language] || data.hero.alt.en || 'Heartifacts';
-    }
-
-    const releaseImage = document.querySelector('[data-release-art] img');
-    if (releaseImage && data.featuredRelease) {
-      const releaseAlt = data.featuredRelease.alt;
-      releaseImage.alt = releaseAlt && (releaseAlt[language] || releaseAlt.en)
-        ? (releaseAlt[language] || releaseAlt.en)
-        : `${data.featuredRelease.title || 'Heartifacts'} artwork`;
-    }
-  };
-
-  const applyLanguage = (language, persist = false) => {
-    const dictionary = dictionaries[language] || dictionaries.en;
-    if (!dictionary) return;
-
-    document.documentElement.lang = language;
-    document.title = dictionary.meta.title;
-
-    const metaDescription = document.querySelector('meta[name="description"]');
-    if (metaDescription) metaDescription.content = dictionary.meta.description;
-
-    const ogTitle = document.querySelector('meta[property="og:title"]');
-    const ogDescription = document.querySelector('meta[property="og:description"]');
-    if (ogTitle) ogTitle.content = dictionary.meta.title;
-    if (ogDescription) ogDescription.content = dictionary.meta.description;
-
-    document.querySelectorAll('[data-i18n]').forEach((element) => {
-      const value = getNestedValue(dictionary, element.dataset.i18n);
-      if (typeof value !== 'string') return;
-      element.textContent = value;
-    });
-
-    document.querySelectorAll('[data-lang]').forEach((button) => {
-      const isActive = button.dataset.lang === language;
-      button.classList.toggle('is-active', isActive);
-      button.setAttribute('aria-pressed', String(isActive));
-    });
-
-    renderShows(language);
-    renderGallery(language);
-    updateQuickStatuses(language);
-    updateMediaAlts(language);
-
-    if (persist) {
-      try { window.localStorage.setItem(languageStorageKey, language); } catch (_) {}
-      updateLanguageUrl(language);
-    }
-  };
-
   const setLink = (element, url) => {
     if (!element) return;
 
     if (!url) {
       element.removeAttribute('href');
+      element.removeAttribute('target');
+      element.removeAttribute('rel');
 
       if (element.dataset.keepEmpty === 'true') {
         element.hidden = false;
         element.classList.add('is-disabled');
         element.setAttribute('aria-disabled', 'true');
-        element.removeAttribute('target');
-        element.removeAttribute('rel');
       } else {
         element.hidden = true;
       }
@@ -115,23 +57,30 @@
     element.removeAttribute('aria-disabled');
     element.href = url;
 
-    if (/^https?:\/\//i.test(url)) {
+    if (/^https:\/\//i.test(url)) {
       element.target = '_blank';
       element.rel = 'noopener noreferrer';
+    } else {
+      element.removeAttribute('target');
+      element.removeAttribute('rel');
     }
   };
 
-  const hydrateLinks = () => {
+  const createExternalLink = (url, className, text) => {
+    const link = document.createElement('a');
+    link.className = className;
+    link.href = url;
+    link.target = '_blank';
+    link.rel = 'noopener noreferrer';
+    link.textContent = text;
+    return link;
+  };
+
+  const hydrateStaticLinks = () => {
     document.querySelectorAll('[data-social]').forEach((element) => {
       const url = data.social && data.social[element.dataset.social];
       setLink(element, url);
     });
-
-    document.querySelectorAll('[data-release-youtube]').forEach((element) => setLink(element, data.featuredRelease && data.featuredRelease.youtube));
-    document.querySelectorAll('[data-release-spotify]').forEach((element) => setLink(element, data.featuredRelease && data.featuredRelease.spotify));
-
-    const releaseTitle = document.querySelector('[data-release-title]');
-    if (releaseTitle && data.featuredRelease && data.featuredRelease.title) releaseTitle.textContent = data.featuredRelease.title;
 
     const email = data.contact && data.contact.email;
     const quickContact = document.querySelector('[data-contact-quick]');
@@ -156,102 +105,219 @@
     });
   };
 
-  const hydrateMedia = () => {
-    const language = document.documentElement.lang || 'en';
+  const hydrateHeroMedia = () => {
     const hero = document.querySelector('[data-hero-media]');
-    if (hero && data.hero && data.hero.image) {
-      const image = document.createElement('img');
-      image.src = data.hero.image;
-      image.alt = (data.hero.alt && (data.hero.alt[language] || data.hero.alt.en)) || 'Heartifacts';
-      image.fetchPriority = 'high';
-      image.decoding = 'async';
-      hero.append(image);
-      hero.classList.add('has-image');
-    }
+    if (!hero || !data.hero || !data.hero.image) return;
 
-    const releaseArt = document.querySelector('[data-release-art]');
-    if (releaseArt && data.featuredRelease && data.featuredRelease.artwork) {
-      const image = document.createElement('img');
-      const releaseAlt = data.featuredRelease.alt;
-      image.src = data.featuredRelease.artwork;
-      image.alt = releaseAlt && (releaseAlt[language] || releaseAlt.en)
-        ? (releaseAlt[language] || releaseAlt.en)
-        : `${data.featuredRelease.title || 'Heartifacts'} artwork`;
-      image.loading = 'lazy';
-      image.decoding = 'async';
-      releaseArt.append(image);
-      releaseArt.classList.add('has-image');
+    const image = document.createElement('img');
+    image.src = data.hero.image;
+    image.alt = (data.hero.alt && (data.hero.alt[activeLanguage] || data.hero.alt.en)) || 'Heartifacts';
+    image.fetchPriority = 'high';
+    image.decoding = 'async';
+    hero.append(image);
+    hero.classList.add('has-image');
+  };
+
+  const updateHeroAlt = (language) => {
+    const heroImage = document.querySelector('[data-hero-media] img');
+    if (heroImage && data.hero && data.hero.alt) {
+      heroImage.alt = data.hero.alt[language] || data.hero.alt.en || 'Heartifacts';
     }
   };
 
-  function renderShows(language) {
+  const updateQuickStatuses = (language) => {
+    const dictionary = getDictionary(language);
+    const soonText = dictionary.quick && dictionary.quick.soon ? dictionary.quick.soon : 'Link soon';
+
+    document.querySelectorAll('.quick-link [data-link-status]').forEach((status) => {
+      const card = status.closest('.quick-link');
+      status.textContent = card && card.classList.contains('is-disabled') ? soonText : '';
+    });
+  };
+
+  const renderReleaseArtwork = (release, language, isPublished) => {
+    const art = document.querySelector('[data-release-art]');
+    if (!art) return;
+
+    art.replaceChildren();
+    art.classList.remove('has-image');
+
+    const artwork = release && (isPublished ? release.artwork : release.artwork);
+    if (artwork) {
+      const image = document.createElement('img');
+      image.src = artwork;
+      image.loading = 'lazy';
+      image.decoding = 'async';
+      if (isPublished) {
+        image.alt = `${release.title} artwork`;
+      } else {
+        const alt = release.alt;
+        image.alt = alt && (alt[language] || alt.en) ? (alt[language] || alt.en) : `${release.title || 'Heartifacts'} artwork`;
+      }
+      art.append(image);
+      art.classList.add('has-image');
+      return;
+    }
+
+    const title = document.createElement('span');
+    title.textContent = release && release.title ? release.title : 'Heartifacts';
+    art.append(title);
+  };
+
+  const getFeaturedPublishedRelease = () => {
+    if (publicDataState.status !== 'ready' || !publicDataState.data) return null;
+    const releases = publicDataState.data.releases.slice().sort((a, b) => b.releaseDate.localeCompare(a.releaseDate));
+    return releases.find((release) => release.featured) || releases[0] || null;
+  };
+
+  const renderRelease = (language) => {
+    const dictionary = getDictionary(language);
+    const published = getFeaturedPublishedRelease();
+    const fallback = data.featuredRelease || {};
+    const release = published || fallback;
+
+    const title = document.querySelector('[data-release-title]');
+    const description = document.querySelector('[data-release-description]');
+    const meta = document.querySelector('[data-release-meta]');
+    const spotify = document.querySelector('[data-release-spotify]');
+    const youtube = document.querySelector('[data-release-youtube]');
+
+    if (title) title.textContent = release.title || 'Heartifacts';
+
+    if (published) {
+      const localized = publicDataApi ? publicDataApi.localizedDescription(published, language) : '';
+      if (description) description.textContent = localized || (dictionary.music && dictionary.music.releaseFallback) || '';
+
+      if (meta) {
+        const pieces = [];
+        if (published.status) pieces.push(published.status);
+        const formattedDate = publicDataApi
+          ? publicDataApi.formatDateOnly(published.releaseDate, language, { day: '2-digit', month: 'short', year: 'numeric' })
+          : '';
+        if (formattedDate) pieces.push(formattedDate);
+        meta.textContent = pieces.join(' · ');
+        meta.hidden = pieces.length === 0;
+      }
+
+      setLink(spotify, published.spotifyUrl);
+      setLink(youtube, published.youtubeUrl);
+      renderReleaseArtwork(published, language, true);
+      return;
+    }
+
+    if (description) description.textContent = (dictionary.music && dictionary.music.body) || '';
+    if (meta) {
+      meta.textContent = '';
+      meta.hidden = true;
+    }
+    setLink(spotify, fallback.spotify);
+    setLink(youtube, fallback.youtube);
+    renderReleaseArtwork(fallback, language, false);
+  };
+
+  const renderGigFallback = (container, dictionary) => {
+    const empty = document.createElement('p');
+    empty.className = 'show-empty';
+    empty.textContent = dictionary.live && dictionary.live.dataFallback
+      ? dictionary.live.dataFallback
+      : 'Gig details coming soon.';
+    container.append(empty);
+  };
+
+  const renderPublishedGigs = (language) => {
     const container = document.querySelector('[data-shows]');
     if (!container) return;
     container.replaceChildren();
 
-    const dictionary = dictionaries[language] || dictionaries.en;
-    const shows = Array.isArray(data.shows) ? data.shows.filter((show) => show.date && show.venue) : [];
+    const dictionary = getDictionary(language);
+    if (publicDataState.status !== 'ready' || !publicDataState.data || !publicDataApi) {
+      renderGigFallback(container, dictionary);
+      return;
+    }
 
-    if (!shows.length) {
+    const today = publicDataApi.bucharestTodayIso();
+    const upcoming = publicDataState.data.gigs
+      .filter((gig) => gig.date >= today)
+      .slice()
+      .sort((a, b) => a.date.localeCompare(b.date));
+
+    if (!upcoming.length) {
       const empty = document.createElement('p');
       empty.className = 'show-empty';
-      empty.textContent = dictionary.live.noShows;
+      empty.textContent = dictionary.live && dictionary.live.noShows
+        ? dictionary.live.noShows
+        : 'More gigs are being cooked up.';
       container.append(empty);
       return;
     }
 
-    shows
-      .slice()
-      .sort((a, b) => String(a.date).localeCompare(String(b.date)))
-      .forEach((show) => {
-        const row = document.createElement('article');
-        row.className = 'show-card';
+    upcoming.forEach((gig) => {
+      const row = document.createElement('article');
+      row.className = 'show-card';
+      if (gig.featured) row.classList.add('is-featured');
 
-        const date = document.createElement('time');
-        date.className = 'show-date';
-        date.dateTime = show.date;
-        const parsedDate = new Date(`${show.date}T12:00:00`);
-        date.textContent = new Intl.DateTimeFormat(language === 'ro' ? 'ro-RO' : 'en-GB', { day: '2-digit', month: 'short' }).format(parsedDate);
+      const date = document.createElement('time');
+      date.className = 'show-date';
+      date.dateTime = gig.date;
+      date.textContent = publicDataApi.formatDateOnly(gig.date, language, { day: '2-digit', month: 'short' });
 
-        const place = document.createElement('div');
-        place.className = 'show-place';
+      const body = document.createElement('div');
+      body.className = 'show-place';
 
-        const title = document.createElement('strong');
-        title.textContent = show.name || show.venue;
-        place.append(title);
+      const title = document.createElement('strong');
+      title.textContent = gig.eventName;
+      body.append(title);
 
-        const detailParts = [];
-        if (show.name && show.venue) detailParts.push(show.venue);
-        if (show.city) detailParts.push(show.city);
-        if (detailParts.length) {
-          const details = document.createElement('span');
-          details.textContent = detailParts.join(' · ');
-          place.append(details);
-        }
+      const location = document.createElement('span');
+      location.className = 'show-location';
+      location.textContent = [gig.venue, gig.city].filter(Boolean).join(' · ');
+      body.append(location);
 
-        row.append(date, place);
+      const localizedDescription = publicDataApi.localizedDescription(gig, language);
+      if (localizedDescription) {
+        const description = document.createElement('p');
+        description.className = 'show-description';
+        description.textContent = localizedDescription;
+        body.append(description);
+      }
 
-        const destination = show.ticketUrl || show.eventUrl;
-        if (destination) {
-          const link = document.createElement('a');
-          link.className = 'button button-ghost';
-          link.href = destination;
-          link.target = '_blank';
-          link.rel = 'noopener noreferrer';
-          link.textContent = dictionary.actions.details;
-          row.append(link);
-        }
+      const actions = document.createElement('div');
+      actions.className = 'show-actions';
 
-        container.append(row);
-      });
-  }
+      if (gig.ticketUrl) {
+        actions.append(createExternalLink(
+          gig.ticketUrl,
+          'button button-ghost show-ticket-link',
+          dictionary.actions && dictionary.actions.tickets ? dictionary.actions.tickets : 'Tickets'
+        ));
+      } else {
+        const soon = document.createElement('span');
+        soon.className = 'show-coming-soon';
+        soon.textContent = dictionary.live && dictionary.live.ticketsSoon
+          ? dictionary.live.ticketsSoon
+          : 'Tickets/details coming soon';
+        actions.append(soon);
+      }
+
+      if (gig.eventUrl && gig.eventUrl !== gig.ticketUrl) {
+        actions.append(createExternalLink(
+          gig.eventUrl,
+          'show-detail-link',
+          dictionary.actions && dictionary.actions.details ? dictionary.actions.details : 'More details'
+        ));
+      }
+
+      row.append(date, body, actions);
+      container.append(row);
+    });
+  };
 
   function renderGallery(language) {
     const container = document.querySelector('[data-gallery]');
     if (!container) return;
     container.replaceChildren();
 
-    const dictionary = dictionaries[language] || dictionaries.en;
+    const dictionary = getDictionary(language);
     const gallery = Array.isArray(data.gallery) ? data.gallery : [];
     const items = gallery.length ? gallery.slice(0, 4) : Array.from({ length: 4 }, (_, index) => ({ placeholder: true, index }));
 
@@ -264,11 +330,17 @@
         placeholder.className = 'gallery-placeholder';
         placeholder.textContent = `PHOTO ${String(index + 1).padStart(2, '0')}`;
         const caption = document.createElement('figcaption');
-        caption.textContent = dictionary.photos.placeholderCaption;
+        caption.textContent = dictionary.photos && dictionary.photos.placeholderCaption
+          ? dictionary.photos.placeholderCaption
+          : '';
         figure.append(placeholder, caption);
       } else {
         const image = document.createElement('img');
-        image.src = item.src;
+        image.src = item.small || item.src;
+        if (item.small) {
+          image.srcset = `${item.small} 1100w, ${item.src} 1600w`;
+          image.sizes = '(max-width: 820px) 92vw, (max-width: 1200px) 48vw, 700px';
+        }
         image.loading = 'lazy';
         image.decoding = 'async';
         image.alt = (item.alt && (item.alt[language] || item.alt.en)) || '';
@@ -303,12 +375,72 @@
     const dialog = document.querySelector('[data-lightbox]');
     const image = document.querySelector('[data-lightbox-image]');
     const caption = document.querySelector('[data-lightbox-caption]');
-    if (!dialog || !image || !dialog.showModal) return;
+    if (!dialog || !image || typeof dialog.showModal !== 'function') return;
 
     image.src = item.src;
     image.alt = (item.alt && (item.alt[language] || item.alt.en)) || '';
     caption.textContent = (item.caption && (item.caption[language] || item.caption.en)) || '';
     dialog.showModal();
+  };
+
+  const applyLanguage = (language, persist = false) => {
+    const dictionary = getDictionary(language);
+    if (!dictionary || !dictionary.meta) return;
+
+    activeLanguage = language;
+    document.documentElement.lang = language;
+    document.title = dictionary.meta.title;
+
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) metaDescription.content = dictionary.meta.description;
+
+    const ogTitle = document.querySelector('meta[property="og:title"]');
+    const ogDescription = document.querySelector('meta[property="og:description"]');
+    if (ogTitle) ogTitle.content = dictionary.meta.title;
+    if (ogDescription) ogDescription.content = dictionary.meta.description;
+
+    document.querySelectorAll('[data-i18n]').forEach((element) => {
+      const value = getNestedValue(dictionary, element.dataset.i18n);
+      if (typeof value === 'string') element.textContent = value;
+    });
+
+    document.querySelectorAll('[data-lang]').forEach((button) => {
+      const isActive = button.dataset.lang === language;
+      button.classList.toggle('is-active', isActive);
+      button.setAttribute('aria-pressed', String(isActive));
+    });
+
+    renderPublishedGigs(language);
+    renderRelease(language);
+    renderGallery(language);
+    updateQuickStatuses(language);
+    updateHeroAlt(language);
+
+    if (persist) {
+      try { window.localStorage.setItem(languageStorageKey, language); } catch (_) {}
+      updateLanguageUrl(language);
+    }
+  };
+
+  const loadPublicData = async () => {
+    if (!publicDataApi || typeof publicDataApi.fetchBandManagerPublicData !== 'function') {
+      publicDataState = Object.freeze({ status: 'failed', data: null });
+      renderPublishedGigs(activeLanguage);
+      return;
+    }
+
+    publicDataState = Object.freeze({ status: 'loading', data: null });
+    renderPublishedGigs(activeLanguage);
+
+    try {
+      const sanitized = await publicDataApi.fetchBandManagerPublicData();
+      publicDataState = Object.freeze({ status: 'ready', data: sanitized });
+    } catch (_) {
+      publicDataState = Object.freeze({ status: 'failed', data: null });
+    }
+
+    renderPublishedGigs(activeLanguage);
+    renderRelease(activeLanguage);
   };
 
   const setupLightbox = () => {
@@ -413,38 +545,42 @@
   };
 
   const setupRevealMotion = () => {
-    if (reducedMotionQuery.matches || !('IntersectionObserver' in window)) return;
-
     const targets = Array.from(document.querySelectorAll('.music-panel, .live-panel, .story-about, .story-photos, .contact-footer-inner'));
     if (!targets.length) return;
 
-    document.documentElement.classList.add('motion-ready');
+    if (reducedMotionQuery.matches || !('IntersectionObserver' in window)) {
+      targets.forEach((target) => target.classList.add('is-revealed'));
+      return;
+    }
+
     targets.forEach((target, index) => {
-      target.dataset.reveal = '';
+      target.classList.add('reveal-ready');
       target.style.setProperty('--reveal-delay', `${Math.min(index, 4) * 45}ms`);
     });
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (!entry.isIntersecting) return;
-        entry.target.classList.add('is-visible');
+        entry.target.classList.add('is-revealed');
         observer.unobserve(entry.target);
       });
-    }, { rootMargin: '0px 0px -10% 0px', threshold: .08 });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: .12 });
 
     targets.forEach((target) => observer.observe(target));
   };
 
-  const initialLanguage = resolveInitialLanguage();
+  activeLanguage = resolveInitialLanguage();
   const year = document.querySelector('[data-year]');
   if (year) year.textContent = new Date().getFullYear();
-  hydrateLinks();
-  hydrateMedia();
+
+  hydrateStaticLinks();
+  hydrateHeroMedia();
   setupMenu();
   setupLightbox();
   setupSectionNavigation();
   setupLanguageButtons();
   setupHeroMotion();
   setupRevealMotion();
-  applyLanguage(initialLanguage);
+  applyLanguage(activeLanguage);
+  void loadPublicData();
 })();
