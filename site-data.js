@@ -28,10 +28,6 @@ window.HeartifactsSiteData = {
     youtube: "https://www.youtube.com/watch?v=FbAdPtLhO2g"
   },
 
-  // Public gig data is generated separately so the Band Manager bridge can publish
-  // updates without touching the website's main configuration.
-  shows: Array.isArray(window.HeartifactsPublishedGigs) ? window.HeartifactsPublishedGigs : [],
-
   gallery: [
     {
       src: "./assets/photos/IMG_3408_medium.webp",
