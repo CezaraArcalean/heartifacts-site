@@ -50,13 +50,16 @@
   text-shadow: 7px 6px 0 rgba(239,49,199,.055);
 }
 
-/* Push the decorative word far enough away that it reads as texture, not a heading. */
+/*
+  GIGS ghost word: sit high in the upper-right visual corner, but remain fully
+  inside the gradient field. It should read as poster texture, not a second heading.
+*/
 .live-mark {
-  right: 2.25rem !important;
-  top: 2.85rem !important;
-  width: 39% !important;
+  right: 1.85rem !important;
+  top: -1.15rem !important;
+  width: 38% !important;
   font-size: clamp(3.8rem, 5.8vw, 6.6rem) !important;
-  color: rgba(8,7,17,.115) !important;
+  color: rgba(8,7,17,.105) !important;
   transform: rotate(10deg) !important;
   transform-origin: center;
   white-space: nowrap;
@@ -92,14 +95,72 @@
   transform: rotate(-5deg);
 }
 
-/* Booking email is primary; Instagram remains an obvious second route. */
+/*
+  Contact hierarchy: the explanatory sentence should be secondary and the email
+  should read immediately as the primary booking action.
+*/
+.footer-contact-lede {
+  max-width: 430px;
+  margin: 0 0 .9rem;
+  color: #c9c4d0;
+  font-size: clamp(.98rem, 1.3vw, 1.14rem);
+  font-weight: 650;
+  line-height: 1.42;
+}
+
+.footer-email:not(.footer-email-placeholder) {
+  position: relative;
+  display: inline-block;
+  max-width: 100%;
+  margin-top: .05rem;
+  padding: .12rem .08rem .35rem 0;
+  color: #fff;
+  font-size: clamp(1.35rem, 2.1vw, 1.78rem);
+  font-weight: 950;
+  line-height: 1.08;
+  letter-spacing: -.025em;
+  text-decoration: none;
+  overflow-wrap: anywhere;
+  transition: transform .18s var(--ease-spring), color .18s ease, filter .18s ease;
+}
+
+.footer-email:not(.footer-email-placeholder)::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--poster-blue), var(--poster-purple) 48%, var(--poster-pink));
+  transform-origin: left;
+  transition: transform .2s var(--ease-spring), filter .2s ease;
+}
+
+.footer-email:not(.footer-email-placeholder):hover,
+.footer-email:not(.footer-email-placeholder):focus-visible {
+  color: #fff;
+  transform: translateY(-2px);
+  filter: drop-shadow(0 6px 14px rgba(39,140,255,.12));
+}
+
+.footer-email:not(.footer-email-placeholder):hover::after,
+.footer-email:not(.footer-email-placeholder):focus-visible::after {
+  transform: scaleX(1.045);
+  filter: brightness(1.18);
+}
+
+.footer-email:not(.footer-email-placeholder):focus-visible {
+  outline: 2px solid var(--poster-pink);
+  outline-offset: 5px;
+}
+
 .footer-dm-link {
   display: flex;
   width: fit-content;
   align-items: center;
   gap: .45rem;
-  margin-top: .72rem;
-  color: #cfc9d4;
+  margin-top: .78rem;
+  color: #bdb6c5;
   font-size: .79rem;
   font-weight: 850;
   text-decoration: none;
@@ -122,11 +183,11 @@
   color: var(--poster-pink);
 }
 
-/* Keep the GIGS texture separated on smaller desktop/tablet layouts too. */
+/* Keep the GIGS texture high and contained on smaller desktop/tablet layouts too. */
 @media (max-width: 1050px) and (min-width: 821px) {
   .live-mark {
-    right: 1.25rem !important;
-    top: 3.3rem !important;
+    right: 1.2rem !important;
+    top: -.45rem !important;
     width: 36% !important;
     font-size: clamp(3.4rem, 6vw, 5.4rem) !important;
   }
@@ -138,11 +199,19 @@
   }
 
   .live-mark {
-    right: .8rem !important;
-    top: 3.45rem !important;
+    right: .7rem !important;
+    top: -.15rem !important;
     width: 38% !important;
     font-size: clamp(3rem, 14vw, 4.5rem) !important;
-    opacity: .8;
+    opacity: .74;
+  }
+
+  .footer-contact-lede {
+    font-size: 1rem;
+  }
+
+  .footer-email:not(.footer-email-placeholder) {
+    font-size: clamp(1.28rem, 6vw, 1.62rem);
   }
 
   .footer-dm-link {
@@ -152,7 +221,9 @@
 
 @media (prefers-reduced-motion: reduce) {
   .footer-dm-link:hover,
-  .footer-dm-link:focus-visible {
+  .footer-dm-link:focus-visible,
+  .footer-email:not(.footer-email-placeholder):hover,
+  .footer-email:not(.footer-email-placeholder):focus-visible {
     transform: none;
   }
 }
