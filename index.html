@@ -35,7 +35,7 @@
 
     <nav class="desktop-nav" aria-label="Primary navigation">
       <a href="#music" data-nav-link data-i18n="nav.music">Music</a>
-      <a href="#live" data-nav-link data-i18n="nav.live">Live</a>
+      <a href="#live" data-nav-link data-i18n="nav.live">Gigs</a>
       <a href="#about" data-nav-link data-i18n="nav.about">About</a>
       <a href="#photos" data-nav-link data-i18n="nav.photos">Photos</a>
     </nav>
@@ -55,13 +55,14 @@
 
   <div class="mobile-menu" id="mobile-menu" data-mobile-menu hidden>
     <a href="#music" data-nav-link data-i18n="nav.music">Music</a>
-    <a href="#live" data-nav-link data-i18n="nav.live">Live</a>
+    <a href="#live" data-nav-link data-i18n="nav.live">Gigs</a>
     <a href="#about" data-nav-link data-i18n="nav.about">About</a>
     <a href="#photos" data-nav-link data-i18n="nav.photos">Photos</a>
     <div class="mobile-menu-links">
       <a data-social="instagram" href="#" target="_blank" rel="noopener noreferrer">Instagram</a>
       <a data-social="spotify" data-keep-empty="true">Spotify</a>
       <a data-social="youtube" href="#" target="_blank" rel="noopener noreferrer">YouTube</a>
+      <a href="#contact" data-i18n="nav.contact">Contact</a>
     </div>
   </div>
 
@@ -112,7 +113,7 @@
       </nav>
     </section>
 
-    <section class="now-section" aria-label="Music and live shows">
+    <section class="now-section" aria-label="Music and gigs">
       <div class="now-shell">
         <article class="music-panel" id="music" aria-labelledby="music-title">
           <div class="panel-kicker-row">
@@ -139,12 +140,12 @@
 
         <article class="live-panel" id="live" aria-labelledby="live-title">
           <div class="panel-kicker-row">
-            <p class="eyebrow" data-i18n="live.kicker">Live</p>
+            <p class="eyebrow" data-i18n="live.kicker">Gigs</p>
             <span class="panel-number" aria-hidden="true">02</span>
           </div>
           <div class="live-heading-row">
-            <div class="live-mark" aria-hidden="true">LIVE!</div>
-            <h2 id="live-title" data-i18n="live.title">Upcoming shows</h2>
+            <div class="live-mark" aria-hidden="true">GIGS!</div>
+            <h2 id="live-title" data-i18n="live.title">Upcoming gigs</h2>
           </div>
           <div class="shows" data-shows></div>
         </article>
@@ -169,25 +170,31 @@
     </section>
   </main>
 
-  <footer class="site-footer quiet-footer">
-    <div class="footer-brand-wrap">
-      <span class="logo-crop logo-crop-footer">
-        <img class="brand-logo brand-logo-footer" src="./assets/brand/Heartifacts_Artwork_white.svg" alt="Heartifacts">
-      </span>
-      <p data-i18n="footer.location">Alternative rock · Bucharest, Romania</p>
-    </div>
+  <footer class="site-footer contact-footer" id="contact">
+    <div class="contact-footer-inner">
+      <div class="footer-brand-wrap">
+        <span class="logo-crop logo-crop-footer">
+          <img class="brand-logo brand-logo-footer" src="./assets/brand/Heartifacts_Artwork_white.svg" alt="Heartifacts">
+        </span>
+        <p data-i18n="footer.location">Alternative rock · Bucharest, Romania</p>
+      </div>
 
-    <div class="footer-contact-block">
-      <span class="footer-label" data-i18n="footer.booking">Booking / Press</span>
-      <a data-contact-email href="#" hidden></a>
-      <span data-contact-placeholder data-i18n="footer.contactSoon">Contact details coming soon.</span>
-    </div>
+      <div class="footer-contact-block">
+        <span class="footer-label" data-i18n="footer.booking">Booking / Press</span>
+        <p class="footer-contact-lede" data-i18n="footer.contactLead">Want to book us, write about us, or get in touch?</p>
+        <a class="footer-email" data-contact-email href="#" hidden></a>
+        <span class="footer-email footer-email-placeholder" data-contact-placeholder data-i18n="footer.contactSoon">Booking details coming soon.</span>
+      </div>
 
-    <nav class="footer-links" aria-label="Heartifacts links">
-      <a data-social="instagram" href="#" target="_blank" rel="noopener noreferrer">Instagram</a>
-      <a data-social="spotify" data-keep-empty="true">Spotify</a>
-      <a data-social="youtube" href="#" target="_blank" rel="noopener noreferrer">YouTube</a>
-    </nav>
+      <nav class="footer-links" aria-label="Heartifacts links">
+        <span class="footer-label" data-i18n="footer.findUs">Find us</span>
+        <div class="footer-link-row">
+          <a data-social="instagram" href="#" target="_blank" rel="noopener noreferrer">Instagram <span aria-hidden="true">↗</span></a>
+          <a data-social="spotify" data-keep-empty="true">Spotify <span aria-hidden="true">↗</span></a>
+          <a data-social="youtube" href="#" target="_blank" rel="noopener noreferrer">YouTube <span aria-hidden="true">↗</span></a>
+        </div>
+      </nav>
+    </div>
 
     <p class="footer-note">© <span data-year></span> Heartifacts.</p>
   </footer>
