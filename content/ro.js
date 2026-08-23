@@ -22,7 +22,8 @@ window.HeartifactsContent.ro = {
     watch: "Vezi",
     spotify: "Ascultă pe Spotify",
     youtube: "Vezi pe YouTube",
-    details: "Detalii"
+    tickets: "Bilete",
+    details: "Mai multe detalii"
   },
   placeholders: {
     heroPhoto: "Aici vine fotografia principală",
@@ -32,12 +33,15 @@ window.HeartifactsContent.ro = {
     kicker: "Muzica noastră",
     title: "Dă-i mai tare.",
     latest: "Cel mai recent release",
-    body: "O piesă tăioasă și furioasă despre trădare, limite încălcate și momentul în care vezi clar toate semnalele de alarmă."
+    body: "O piesă tăioasă și furioasă despre trădare, limite încălcate și momentul în care vezi clar toate semnalele de alarmă.",
+    releaseFallback: "Muzică nouă de la Heartifacts."
   },
   live: {
     kicker: "Gigs",
     title: "Concerte viitoare",
-    noShows: "Detaliile concertelor vor apărea aici imediat ce sunt publicate. Urmărește-ne pe Instagram pentru anunțuri."
+    dataFallback: "Detaliile concertelor apar în curând — urmărește-ne pe Instagram pentru anunțuri.",
+    noShows: "Se gătesc concerte noi — urmărește-ne pe Instagram.",
+    ticketsSoon: "Bilete / detalii în curând"
   },
   about: {
     kicker: "Despre noi",
