@@ -20,7 +20,7 @@
 }
 
 /* Desktop social rail: keep the three media dots with the viewport as the
-   visitor scrolls. The mobile/tablet layout below remains in normal flow. */
+   visitor scrolls. */
 @media (min-width: 821px) {
   .poster-hero {
     z-index: 20;
@@ -36,6 +36,32 @@
 }
 
 @media (max-width: 820px) {
+  /* Keep the social links floaty on mobile too, but make the rail more compact
+     so it stays useful without taking over a narrow viewport. */
+  .poster-hero {
+    z-index: 20;
+  }
+
+  .social-dock {
+    position: fixed;
+    z-index: 30;
+    right: max(.45rem, env(safe-area-inset-right));
+    top: 50%;
+    width: auto;
+    margin: 0;
+    display: grid;
+    gap: .62rem;
+    transform: translateY(-50%);
+  }
+
+  .social-dock .dock-button {
+    width: 48px;
+  }
+
+  .social-dock .dock-button span {
+    display: none;
+  }
+
   /* Keep in-page navigation clear of the fixed header. */
   .music-panel,
   .live-panel,
@@ -243,6 +269,15 @@
 }
 
 @media (max-width: 390px) {
+  .social-dock {
+    right: max(.35rem, env(safe-area-inset-right));
+    gap: .55rem;
+  }
+
+  .social-dock .dock-button {
+    width: 44px;
+  }
+
   .release-actions {
     grid-template-columns: 1fr;
   }
