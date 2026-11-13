@@ -79,6 +79,8 @@ Add an entry to the show's `videos` array with the song title, 11-character YouT
 
 The newest upload is featured. Older uploads appear newest first under “More songs from this show.” Entries without a publication time follow the dated uploads in their listed order. Update the show page's links for visitors with JavaScript disabled in the same order. An optional `poster` names a local image in `assets/live/<slug>/`. If omitted, the player's thumbnail uses the concert cover.
 
+When `live-data.js` or `live.js` changes, update that script's `?v=` value in `index.html`, `live/index.html`, and each show page. Use the first eight characters from `sha256sum` for the updated script so visitors load the current file on refresh.
+
 For photos, keep the fullscreen WebPs in `assets/photos/` and their matching `<file>-thumb.webp` thumbnails in `assets/live/<slug>/`. Add `photoCredit` to the concert record to display the photographer below the Photos heading.
 
 ### Release updates
