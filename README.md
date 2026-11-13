@@ -71,13 +71,13 @@ The latest concert recap appears in Gigs even when the Band Manager feed is unav
 
 `live-data.js` holds each recap's date, venue, localized text, cover, photos, and video list. The show page at `live/<slug>/index.html` selects its record with `data-concert="<slug>"`. A new recap needs that page with its own title, canonical URL and share image, plus an entry in `sitemap.xml`. The archive and homepage pick up the new record automatically.
 
-Append an entry like this to the existing show's `videos` array, using the song title and 11-character YouTube ID.
+Add an entry to the show's `videos` array with the song title, 11-character YouTube ID, and YouTube publication time in UTC.
 
 ```js
-{ title: 'Song title', youtubeId: 'VIDEO_ID_11' }
+{ title: 'Song title', youtubeId: 'VIDEO_ID_11', publishedAt: '2026-11-13T19:00:30Z' }
 ```
 
-The first video is featured. Additional videos appear under “More songs from this show.” An optional `poster` names a local image in `assets/live/<slug>/`. If omitted, the player's thumbnail uses the concert cover.
+The newest upload is featured. Older uploads appear newest first under “More songs from this show.” Entries without a publication time follow the dated uploads in their listed order. Update the show page's links for visitors with JavaScript disabled in the same order. An optional `poster` names a local image in `assets/live/<slug>/`. If omitted, the player's thumbnail uses the concert cover.
 
 For photos, keep the fullscreen WebPs in `assets/photos/` and their matching `<file>-thumb.webp` thumbnails in `assets/live/<slug>/`. Add `photoCredit` to the concert record to display the photographer below the Photos heading.
 
