@@ -43,6 +43,26 @@ window.HeartifactsContent.ro = {
     noShows: "Se gătesc concerte noi — urmărește-ne pe Instagram.",
     ticketsSoon: "Bilete / detalii în curând"
   },
+  liveArchive: {
+    title: "Concerte live",
+    at: "la",
+    description: "Vezi fotografii și clipuri de la concertele Heartifacts.",
+    latest: "Cel mai recent concert",
+    past: "Vezi concertele trecute",
+    backToGigs: "Înapoi la Gigs",
+    allConcerts: "Toate concertele",
+    recap: "Poze și clipuri",
+    videos: "Clipuri live",
+    moreVideos: "Mai multe piese de la concert",
+    play: "Redă",
+    photos: "Poze",
+    credit: "Fotografii de",
+    viewer: "Galerie foto de la concert",
+    close: "Închide galeria foto",
+    previousPhoto: "Poza anterioară",
+    nextPhoto: "Poza următoare",
+    skip: "Sari la conținut"
+  },
   about: {
     kicker: "Despre noi",
     title: "Oameni: cinci\nTrupă: una\nMuzică: tare",
