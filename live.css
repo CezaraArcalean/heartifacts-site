@@ -30,10 +30,41 @@
 .gig-recap-arrow { font-size: 1.4rem; }
 
 .concert-page {
+  --concert-brush: linear-gradient(90deg, var(--poster-pink), var(--poster-purple), var(--poster-blue));
+  --concert-specks:
+    radial-gradient(ellipse at 10% 69%, rgb(39 140 255 / .8) 0 2px, transparent 3px),
+    radial-gradient(ellipse at 18% 52%, rgb(39 140 255 / .6) 0 .8px, transparent 1.4px),
+    radial-gradient(ellipse at 27% 78%, rgb(246 242 245 / .45) 0 .7px, transparent 1.3px),
+    radial-gradient(ellipse at 32% 63%, rgb(239 49 199 / .65) 0 1.1px, transparent 1.8px),
+    radial-gradient(ellipse at 42% 40%, rgb(239 49 199 / .86) 0 3.2px, transparent 4.3px),
+    radial-gradient(ellipse at 47% 71%, rgb(121 53 220 / .8) 0 1.5px, transparent 2.3px),
+    radial-gradient(ellipse at 49% 26%, rgb(239 49 199 / .5) 0 .85px, transparent 1.4px),
+    radial-gradient(ellipse at 58% 48%, rgb(246 242 245 / .45) 0 .9px, transparent 1.5px),
+    radial-gradient(ellipse at 66% 30%, rgb(39 140 255 / .78) 0 1.8px, transparent 2.7px),
+    radial-gradient(ellipse at 75% 59%, rgb(239 49 199 / .72) 0 1.3px, transparent 2.1px),
+    radial-gradient(ellipse at 82% 19%, rgb(121 53 220 / .85) 0 2.6px, transparent 3.5px),
+    radial-gradient(ellipse at 91% 36%, rgb(39 140 255 / .58) 0 .9px, transparent 1.6px);
+  position: relative;
+  isolation: isolate;
   color: var(--poster-paper);
   background:
-    radial-gradient(ellipse at 88% 1%, rgb(121 53 220 / .18), transparent 39rem),
+    radial-gradient(ellipse at 95% 8rem, rgb(121 53 220 / .18), transparent 38rem),
+    radial-gradient(ellipse at 6% 24rem, rgb(39 140 255 / .11), transparent 34rem),
+    radial-gradient(ellipse at 96% 76rem, rgb(239 49 199 / .09), transparent 38rem),
     var(--poster-ink);
+}
+
+.concert-page::after {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto;
+  z-index: -1;
+  height: min(58rem, 100%);
+  background: url('./assets/brand/Heartifacts_BG_Artwork.webp') center 43% / cover;
+  mask-image: linear-gradient(120deg, rgb(0 0 0 / .33), #000 72%), linear-gradient(#000 12%, transparent 98%);
+  mask-composite: intersect;
+  opacity: .24;
+  pointer-events: none;
 }
 
 .concert-page :focus-visible { outline-color: var(--poster-blue); }
@@ -44,7 +75,28 @@
   margin-inline: auto;
   padding: clamp(6rem, 11vw, 9rem) var(--site-pad) clamp(3rem, 8vw, 6rem);
 }
-.concert-heading { margin-bottom: clamp(2rem, 5vw, 3.5rem); }
+.concert-heading {
+  position: relative;
+  isolation: isolate;
+  margin-bottom: clamp(2rem, 5vw, 3.5rem);
+}
+.concert-heading:not(.concert-show-heading)::before,
+.concert-section-heading::before,
+.concert-more-videos summary::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+  background: var(--concert-specks);
+}
+.concert-heading:not(.concert-show-heading)::before {
+  top: 1.15rem;
+  right: clamp(.1rem, 7vw, 5.75rem);
+  width: clamp(5.6rem, 16vw, 12rem);
+  height: clamp(3rem, 6vw, 5.3rem);
+  opacity: .8;
+  transform: rotate(-12deg);
+}
 .concert-heading h1 {
   margin: .75rem 0 0;
   font-family: var(--riot);
@@ -59,7 +111,7 @@
   width: clamp(6rem, 21vw, 14rem);
   height: .45rem;
   margin-top: .5rem;
-  background: linear-gradient(90deg, var(--poster-pink), var(--poster-purple), var(--poster-blue));
+  background: var(--concert-brush);
   clip-path: polygon(0 46%, 96% 0, 100% 39%, 87% 86%, 2% 100%);
 }
 .concert-back {
@@ -77,11 +129,25 @@
 
 .concert-list { display: grid; gap: 1.25rem; }
 .concert-card {
+  position: relative;
   display: grid;
   grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
-  border: 1px solid rgb(246 242 245 / .2);
-  background: var(--poster-ink-2);
+  border: 1px solid rgb(246 242 245 / .26);
+  background: linear-gradient(139deg, transparent 53%, rgb(121 53 220 / .12)), var(--poster-ink-2);
+  box-shadow: .4rem .4rem 0 rgb(121 53 220 / .24);
   text-decoration: none;
+}
+.concert-card::before {
+  content: '';
+  position: absolute;
+  top: -.43rem;
+  left: clamp(.55rem, 3vw, 1.65rem);
+  width: clamp(3.05rem, 7vw, 5.15rem);
+  height: .85rem;
+  background: var(--concert-brush);
+  clip-path: polygon(2% 12%, 97% 0, 99% 22%, 96% 38%, 100% 56%, 95% 79%, 97% 91%, 0 100%, 3% 63%, 0 42%, 4% 21%);
+  transform: rotate(-7deg);
+  pointer-events: none;
 }
 .concert-card-image { overflow: hidden; }
 .concert-card-image img { width: 100%; height: 100%; aspect-ratio: 16 / 10; object-fit: cover; }
@@ -124,8 +190,17 @@
   isolation: isolate;
   overflow: hidden;
   margin-top: .7rem;
-  border-bottom: 3px solid var(--poster-purple);
+  border: 1px solid rgb(246 242 245 / .17);
   background: var(--poster-ink-2);
+}
+.concert-hero::before {
+  content: '';
+  position: absolute;
+  inset: auto 0 0;
+  height: .36rem;
+  background: var(--concert-brush);
+  clip-path: polygon(0 33%, 23% 31%, 29% 49%, 61% 14%, 81% 30%, 100% 4%, 100% 70%, 69% 68%, 51% 92%, 20% 73%, 0 100%);
+  pointer-events: none;
 }
 .concert-hero > img {
   position: absolute;
@@ -158,6 +233,8 @@
 
 .concert-section { margin-top: clamp(2.6rem, 6vw, 5.3rem); }
 .concert-section-heading {
+  position: relative;
+  isolation: isolate;
   display: flex;
   justify-content: space-between;
   align-items: baseline;
@@ -166,6 +243,26 @@
   padding-bottom: .8rem;
   margin-bottom: 1.2rem;
   border-bottom: 1px solid rgb(246 242 245 / .23);
+}
+.concert-section-heading::before {
+  right: clamp(.3rem, 2.4vw, 1.6rem);
+  bottom: .1rem;
+  width: clamp(5rem, 11vw, 8.8rem);
+  height: 3rem;
+  opacity: .68;
+  transform: rotate(-7deg);
+}
+.concert-section:not([data-concert-videos]) .concert-section-heading::before { transform: scaleX(-1) rotate(-12deg); }
+.concert-section-heading::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: clamp(3.5rem, 9vw, 7rem);
+  height: 4px;
+  background: var(--concert-brush);
+  clip-path: polygon(0 34%, 100% 0, 94% 70%, 3% 100%);
+  pointer-events: none;
 }
 .concert-section-heading h2 {
   margin: 0;
@@ -225,13 +322,69 @@
 .concert-video-caption a { display: flex; align-items: center; min-height: 44px; font-size: .88rem; text-underline-offset: .22em; }
 .concert-video-caption a:hover { color: var(--poster-pink); }
 .concert-more-videos {
-  margin-top: 1rem;
-  padding: 0 1rem;
-  border: 1px solid rgb(246 242 245 / .2);
+  margin-top: 1.15rem;
+  border: 1px solid rgb(246 242 245 / .27);
   background: var(--poster-ink-2);
 }
-.concert-more-videos summary { min-height: 44px; padding-block: .7rem; cursor: pointer; font-weight: 750; }
-.concert-song-videos { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr)); gap: 1rem; padding: 0 0 1rem; }
+.concert-more-videos summary {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .8rem;
+  min-height: 62px;
+  padding: .55rem clamp(.65rem, 2vw, 1rem) .55rem clamp(.85rem, 2vw, 1.25rem);
+  border-bottom: 1px solid transparent;
+  background: linear-gradient(106deg, rgb(121 53 220 / .14), transparent 43%, rgb(39 140 255 / .12));
+  font-weight: 800;
+  line-height: 1.3;
+  list-style: none;
+  cursor: pointer;
+}
+.concert-more-videos summary::-webkit-details-marker { display: none; }
+.concert-more-videos summary::before {
+  content: '';
+  position: absolute;
+  inset: .32rem auto .28rem -.14rem;
+  width: .37rem;
+  background: linear-gradient(var(--poster-pink), var(--poster-purple), var(--poster-blue));
+  clip-path: polygon(7% 4%, 95% 0, 81% 39%, 100% 72%, 74% 97%, 0 100%, 20% 62%);
+  pointer-events: none;
+}
+.concert-more-videos summary::after {
+  top: 0;
+  right: clamp(3.6rem, 5vw, 5.35rem);
+  width: clamp(3rem, 10vw, 7rem);
+  height: 100%;
+  opacity: .62;
+}
+.concert-more-videos summary:hover { background-color: rgb(121 53 220 / .13); }
+.concert-more-videos[open] { border-color: rgb(239 49 199 / .48); }
+.concert-more-videos[open] summary { border-bottom-color: rgb(246 242 245 / .16); }
+.concert-more-toggle {
+  flex: 0 0 2.25rem;
+  display: grid;
+  place-items: center;
+  height: 2.25rem;
+  background: var(--poster-blue);
+  color: var(--poster-ink);
+  clip-path: polygon(5% 8%, 97% 0, 94% 91%, 1% 100%);
+}
+.concert-more-toggle::before,
+.concert-more-toggle::after { content: ''; grid-area: 1 / 1; }
+.concert-more-toggle::before { width: .84rem; border-top: 2px solid; }
+.concert-more-toggle::after { height: .84rem; border-left: 2px solid; }
+.concert-more-videos[open] .concert-more-toggle { background: var(--poster-pink); }
+.concert-more-videos[open] .concert-more-toggle::after { content: none; }
+.concert-song-videos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
+  gap: 1rem;
+  padding: clamp(.6rem, 2.2vw, 1.25rem);
+  background: rgb(8 7 17 / .36);
+}
+.concert-song-videos .concert-video { border: 1px solid rgb(246 242 245 / .14); }
 
 .concert-photos {
   display: grid;
@@ -287,6 +440,8 @@
 
 @media (max-width: 680px) {
   .live-panel .shows, .live-panel .gig-recap { margin-right: .75rem; }
+  .concert-page::after { height: min(42rem, 100%); }
+  .concert-heading:not(.concert-show-heading)::before { top: 0; right: .25rem; }
   .concert-card { grid-template-columns: 1fr; }
   .concert-card-image img { aspect-ratio: 4 / 3; }
   .concert-hero { display: block; min-height: 0; }
@@ -296,4 +451,8 @@
   .concert-meta time { padding: 0; border: 0; }
   .concert-photos { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .concert-photo-wide, .concert-photo-wide:last-child { aspect-ratio: 4 / 3; }
+}
+
+@media (forced-colors: active) {
+  .concert-more-toggle { border: 1px solid; clip-path: none; }
 }

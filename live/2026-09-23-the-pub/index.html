@@ -23,7 +23,7 @@
   <link rel="stylesheet" href="../../logo-crop.css">
   <link rel="stylesheet" href="../../polish-pass.css">
   <link rel="stylesheet" href="../../final-pass.css">
-  <link rel="stylesheet" href="../../live.css">
+  <link rel="stylesheet" href="../../live.css?v=f500a67b">
   <script src="../../content/en.js" defer></script>
   <script src="../../content/ro.js" defer></script>
   <script src="../../public-data.js" defer></script>
@@ -95,7 +95,10 @@
       </noscript>
       <div data-featured-video></div>
       <details class="concert-more-videos" data-more-videos hidden>
-        <summary data-i18n="liveArchive.moreVideos">More songs from this show</summary>
+        <summary>
+          <span data-i18n="liveArchive.moreVideos">More songs from this show</span>
+          <span class="concert-more-toggle" aria-hidden="true"></span>
+        </summary>
         <div class="concert-song-videos" data-song-videos></div>
       </details>
     </section>
