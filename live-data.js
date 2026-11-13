@@ -11,7 +11,8 @@ window.HeartifactsConcerts = [
     },
     cover: 'DSC07198',
     videos: [
-      { title: 'Rain', youtubeId: 'lHkgOLMG4Fg', poster: 'rain-video.webp' }
+      { title: 'Rain', youtubeId: 'lHkgOLMG4Fg', poster: 'rain-video.webp' },
+      { title: 'All the Things She Said (t.A.T.u. cover)', youtubeId: 'VW5N0L9QeHU', poster: 'all-the-things-she-said-video.webp' }
     ],
     photos: [
       {
