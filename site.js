@@ -3,6 +3,7 @@
 
   const data = window.HeartifactsSiteData || {};
   const publicDataApi = window.HeartifactsPublicData || null;
+  const liveArchive = window.HeartifactsLive;
   const dictionaries = window.HeartifactsContent || {};
   const supportedLanguages = ['ro', 'en'];
   const languageStorageKey = 'heartifacts-language';
@@ -389,15 +390,16 @@
 
     activeLanguage = language;
     document.documentElement.lang = language;
-    document.title = dictionary.meta.title;
+    const pageMeta = liveArchive?.getPageMetadata(language, dictionary.liveArchive) || dictionary.meta;
+    document.title = pageMeta.title;
 
     const metaDescription = document.querySelector('meta[name="description"]');
-    if (metaDescription) metaDescription.content = dictionary.meta.description;
+    if (metaDescription) metaDescription.content = pageMeta.description;
 
     const ogTitle = document.querySelector('meta[property="og:title"]');
     const ogDescription = document.querySelector('meta[property="og:description"]');
-    if (ogTitle) ogTitle.content = dictionary.meta.title;
-    if (ogDescription) ogDescription.content = dictionary.meta.description;
+    if (ogTitle) ogTitle.content = pageMeta.title;
+    if (ogDescription) ogDescription.content = pageMeta.description;
 
     document.querySelectorAll('[data-i18n]').forEach((element) => {
       const value = getNestedValue(dictionary, element.dataset.i18n);
@@ -415,6 +417,13 @@
     renderGallery(language);
     updateQuickStatuses(language);
     updateHeroAlt(language);
+    liveArchive?.localize(language, dictionary.liveArchive);
+
+    document.querySelectorAll('a[data-language-link][href]').forEach((link) => {
+      const url = new URL(link.href);
+      url.searchParams.set('lang', language);
+      link.href = url.href;
+    });
 
     if (persist) {
       try { window.localStorage.setItem(languageStorageKey, language); } catch (_) {}
@@ -482,6 +491,10 @@
     const sections = ['music', 'live', 'about', 'photos']
       .map((id) => document.getElementById(id))
       .filter(Boolean);
+    if (!sections.length) return;
+
+    const visibleSections = new Map();
+    const getLinkedSection = () => sections.find((section) => `#${section.id}` === window.location.hash);
 
     const setCurrent = (id) => {
       links.forEach((link) => {
@@ -493,12 +506,22 @@
     };
 
     const observer = new IntersectionObserver((entries) => {
-      const visible = entries
-        .filter((entry) => entry.isIntersecting)
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) visibleSections.set(entry.target, entry);
+        else visibleSections.delete(entry.target);
+      });
+      const linked = getLinkedSection();
+      const visible = visibleSections.get(linked) || [...visibleSections.values()]
         .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
       if (visible && visible.target.id) setCurrent(visible.target.id);
     }, { rootMargin: '-18% 0px -58% 0px', threshold: [0, .12, .3, .55] });
 
+    const updateLinkedSection = () => {
+      const linked = getLinkedSection();
+      if (linked) setCurrent(linked.id);
+    };
+    window.addEventListener('hashchange', updateLinkedSection);
+    updateLinkedSection();
     sections.forEach((section) => observer.observe(section));
   };
 
@@ -582,5 +605,5 @@
   setupHeroMotion();
   setupRevealMotion();
   applyLanguage(activeLanguage);
-  void loadPublicData();
+  if (document.querySelector('[data-shows], [data-release-art]')) void loadPublicData();
 })();

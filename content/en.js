@@ -43,6 +43,26 @@ window.HeartifactsContent.en = {
     noShows: "More gigs are being cooked up — follow us on Instagram.",
     ticketsSoon: "Tickets / details coming soon"
   },
+  liveArchive: {
+    title: "Live concerts",
+    at: "at",
+    description: "Explore photos and videos from past Heartifacts concerts.",
+    latest: "Latest show",
+    past: "See past concerts",
+    backToGigs: "Back to gigs",
+    allConcerts: "All concerts",
+    recap: "Photos & videos",
+    videos: "Live videos",
+    moreVideos: "More songs from this show",
+    play: "Play",
+    photos: "Photos",
+    credit: "Photography by",
+    viewer: "Concert photo gallery",
+    close: "Close photo gallery",
+    previousPhoto: "Previous photo",
+    nextPhoto: "Next photo",
+    skip: "Skip to content"
+  },
   about: {
     kicker: "About",
     title: "People: five\nBand: one\nMusic: loud",

@@ -8,8 +8,6 @@ This repository is intentionally simple: plain HTML, CSS and vanilla JavaScript,
 
 GitHub Pages publishes the `main` branch from the repository root. Development work should normally happen on a feature branch and be merged into `main` only after review.
 
-The current working branch is `feature/v1-foundation`.
-
 ## Public Band Manager data
 
 Published gig/release data follows a strict one-way path:
@@ -67,7 +65,21 @@ The current Gigs UI:
 - shows a non-clickable coming-soon treatment when tickets are not published yet;
 - fails back to quiet fan-facing copy if the feed is unavailable or invalid.
 
-Past gigs remain present in the sanitized in-memory data but are not turned into a large archive in the current homepage design.
+The latest concert recap appears in Gigs even when the Band Manager feed is unavailable. It links to `/live/`, where published recaps appear newest first. Past dates in the feed do not automatically become recaps.
+
+### Concert recaps
+
+`live-data.js` holds each recap's date, venue, localized text, cover, photos, and video list. The show page at `live/<slug>/index.html` selects its record with `data-concert="<slug>"`. A new recap needs that page with its own title, canonical URL and share image, plus an entry in `sitemap.xml`. The archive and homepage pick up the new record automatically.
+
+Append an entry like this to the existing show's `videos` array, using the song title and 11-character YouTube ID.
+
+```js
+{ title: 'Song title', youtubeId: 'VIDEO_ID_11' }
+```
+
+The first video is featured. Additional videos appear under “More songs from this show.” An optional `poster` names a local image in `assets/live/<slug>/`. If omitted, the player's thumbnail uses the concert cover.
+
+For photos, keep the fullscreen WebPs in `assets/photos/` and their matching `<file>-thumb.webp` thumbnails in `assets/live/<slug>/`. Add `photoCredit` to the concert record to display the photographer below the Photos heading.
 
 ### Release updates
 
@@ -78,6 +90,7 @@ When `releases` is empty, the current static Red Flag content in `site-data.js` 
 ## Files you will edit most often
 
 - `site-data.js` — static social/contact information, static release fallback, hero and gallery photos.
+- `live-data.js` — past concerts, photos and YouTube videos.
 - `public-data.js` — public JSON fetch/validation contract. Change carefully.
 - `content/en.js` — English website text.
 - `content/ro.js` — Romanian website text.
