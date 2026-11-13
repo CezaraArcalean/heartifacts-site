@@ -140,7 +140,9 @@
   }
 
   if (concert) {
-    const videos = concert.videos.filter((video) => /^[A-Za-z0-9_-]{11}$/.test(video.youtubeId));
+    const videos = concert.videos
+      .filter((video) => /^[A-Za-z0-9_-]{11}$/.test(video.youtubeId))
+      .sort((a, b) => (Date.parse(b.publishedAt) || 0) - (Date.parse(a.publishedAt) || 0));
     const videoSection = document.querySelector('[data-concert-videos]');
     videoSection.hidden = !videos.length;
     if (videos.length) addVideo(videos[0], document.querySelector('[data-featured-video]'));
